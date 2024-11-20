@@ -7,10 +7,15 @@ def convertMetersPerSecToKilometersPerSec(metersPerSec):
     return metersPerSec / 10000
 
 GRAVITY = 9.8
-height = float(input("Enter the height of the object in meters: "))
-intialVelocity = float(input("Enter the initial velocity of the object in m/s: "))
 
-finVelocityInMeters = calcVelocity(intialVelocity, height)
-finVelocityInKiloMeters = convertMetersPerSecToKilometersPerSec(finVelocityInMeters)
+while True:
+    height = float(input("Enter the height of the object in meters: "))
+    intialVelocity = float(input("Enter the initial velocity of the object in m/s: "))
 
-print(f"The final velocity of the object is {finVelocityInMeters} m/s or {finVelocityInKiloMeters} km/s.")
+    finVelocityInMeters = calcVelocity(intialVelocity, height)
+    finVelocityInKiloMeters = convertMetersPerSecToKilometersPerSec(finVelocityInMeters)
+
+    print(f"The final velocity of the object is {finVelocityInMeters} m/s or {finVelocityInKiloMeters} km/s.")
+    choice = input("press 'q' to quit or 'c' to continue ")
+    if (choice == "q"):
+        break
