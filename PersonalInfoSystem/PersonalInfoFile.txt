@@ -1,0 +1,7 @@
+6
+Dart Vader 50 m
+Lea Skywalker 30 f
+Han Solo 30 m
+Ray Skywalker 20 f
+Luke Skywalker 25 m
+Kylo Ren 22 m
