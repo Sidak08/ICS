@@ -1,5 +1,5 @@
 '''
-File: ConditionlStatements.y
+File: ConditionlStatements.py
 Author Sidak Singh
 Date: Nov 14, 2024
 
