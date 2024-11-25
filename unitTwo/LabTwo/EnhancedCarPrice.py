@@ -35,6 +35,6 @@ for i in range(len(carMake)):
     taxCharge[i] = calcAddedPercentage(carHstRate[i], carPrice[i] + pdiCharge[i])
 
     print("For car {} which is a {} {} the total price is\
- ${:.2f} which includes ${:.2f} base\
- price ${:.2f} for PDI and ${:.2f} for HST.".format(i+1, carMake[i], carModel[i],
+ ${:,.2f} which includes ${:,.2f} base\
+ price ${:,.2f} for PDI and ${:,.2f} for HST.".format(i+1, carMake[i], carModel[i],
 carPrice[i] + pdiCharge[i] + taxCharge[i], carPrice[i], pdiCharge[i], taxCharge[i]))

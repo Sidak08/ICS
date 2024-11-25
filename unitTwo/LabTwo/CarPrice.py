@@ -25,6 +25,6 @@ pdiCharge = calcAddedPercentage(carPDIRate, carPrice)
 taxCharge = calcAddedPercentage(hstRate, carPrice + pdiCharge)
 
 print("You car is a {} {} model and the total price is\
- ${:.2f} which includes ${:.2f} base\
-price ${:.2f} for PDI and ${:.2f} for HST.".format(carMake, carModel,
+ ${:,.2f} which includes ${:,.2f} base\
+ price ${:,.2f} for PDI and ${:,.2f} for HST.".format(carMake, carModel,
     carPrice + pdiCharge + taxCharge, carPrice, pdiCharge, taxCharge))
