@@ -14,21 +14,21 @@ Function List:
             The (initialVelocity) in m/s and (height) in m
         returns:
             Gives the final velocity of an object in m/s
-    convertMetersPerSecToKilometersPerSec:
+    convertMetersPerSecToKilometersPerHour:
         does:
-            converts the velocity from m/s to km/s
+            converts the velocity from m/s to km/h
         parameters:
             metersPerSec
         returns:
-            metersPerSec converted to km/s
+            metersPerSec converted to km/h
 '''
 
 def calcVelocity(initialVelocity, height):
     global GRAVITY
     return (initialVelocity**2 + 2 * GRAVITY * height)**0.5
 
-def convertMetersPerSecToKilometersPerSec(metersPerSec):
-    return metersPerSec / 1000
+def convertMetersPerSecToKilometersPerHour(metersPerSec):
+    return metersPerSec * 3.6
 
 GRAVITY = 9.8
 
@@ -37,10 +37,10 @@ while True:
     initialVelocity = float(input("Enter the initial velocity of the object in m/s: "))
 
     finalVelocityInMeters = calcVelocity(initialVelocity, height)
-    finalVelocityInKilometers = convertMetersPerSecToKilometersPerSec(finalVelocityInMeters)
+    finalVelocityInKilometers = convertMetersPerSecToKilometersPerHour(finalVelocityInMeters)
 
     print("The final velocity of the object is {:.2f} m/s\n"
-          "or {:.2f} km/s.".format(finalVelocityInMeters, finalVelocityInKilometers))
+          "or {:.2f} km/h.".format(finalVelocityInMeters, finalVelocityInKilometers))
 
     choice = input("Press 'q' to quit or 'c' to continue: ")
     if choice == "q":
