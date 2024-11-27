@@ -621,9 +621,7 @@ import React from "react";
 
 **Professional Summary**
 
-I am a results-driven software developer with a strong background in full-stack development, machine learning, and low level systems development. I have successfully published an NPM package with over 1,000 downloads, orgenised one of Toronto's largest game jams: Counterspell, developed a programming language capable of interpreting natural language through a deep neural network classifier model created in c++ and asembley.
-
-expertise in JavaScript, TypeScript, React, Next.js, Node.js, MongoDB, Python, and TensorFlow, I have contributed to the design and implementation of advanced systems, including a reservation management platform, an AI-driven sign language translator, and various interactive web applications. I am dedicated to delivering efficient, scalable solutions while continuously refining my skills to stay ahead of industry trends.
+I am a results-driven software developer. I have successfully published an NPM package with over 1,000+ downloads, organized one of Toronto's largest game jams: Counterspell with over 120+ attendees, and developed a programming language capable of interpreting natural language through a deep neural network classifier model created in C++ and assembly. Designed and implemented an advanced reservation management platform with over 75+ users constructed with 8900 lines of code and 96 files. I am dedicated to delivering efficient, scalable solutions while continuously refining my skills to stay ahead of industry trends.
 
 ---
 
