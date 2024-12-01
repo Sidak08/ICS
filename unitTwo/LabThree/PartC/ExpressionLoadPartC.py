@@ -19,7 +19,7 @@ load_file(filename)
 '''
 #================ Functions ===================
 
-def load_file(filename):
+def loadFile(filename):
     fileR = open(filename,"r")
     size = fileR.readline()
     size = int(size.strip())

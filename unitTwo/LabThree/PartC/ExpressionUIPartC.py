@@ -1,5 +1,5 @@
 #Denu
-from ExpressionLoad import load_file
+from ExpressionLoad import loadFile
 from StringCalculator import calc
 from tkinter import *
 '''
@@ -15,7 +15,7 @@ The user interface for the Personal Infromation System Application
 
 try:
     file_name = input("Enter a file name: ")
-    input_data = load_file(file_name)
+    input_data = loadFile(file_name)
     text = ""
     for i in range(len(input_data)):
         output = calc(input_data[i])
