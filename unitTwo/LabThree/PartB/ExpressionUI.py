@@ -1,0 +1,37 @@
+#Denu
+from ICS.unitTwo.LabThree.PartC.ExpressionLoadPartC import loadFile
+from StringCalculator import calc
+from tkinter import *
+'''
+
+File:PersonalInfoUI.py
+Author: Dhenushan Ramesh
+Date: Nov 27, 2024
+
+Description:
+The user interface for the Personal Infromation System Application
+
+'''
+
+try:
+    fileName = input("Enter a file name: ")
+    inputData = loadFile(fileName)
+    text = ""
+    for i in range(len(inputData)):
+        output = calc(inputData[i])
+        text = text + output + "\n\n"   
+    print(text)
+    root = Tk()
+    root.geometry("350x550")#set window size
+    root.title("String Calulator")
+    textOutput = Text(root, height=40, width=40)
+    textOutput.grid(column=0, row=0, padx=50, pady=20)
+    textOutput.insert(END, text) 
+    textOutput.config(state=DISABLED)
+    root.mainloop()
+
+except FileNotFoundError:
+    print("\nError! " + fileName + " Not found")
+except ValueError as e:
+    print("\nError! " + fileName + " is corrupted")
+    print(e)
