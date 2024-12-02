@@ -1,5 +1,5 @@
 #Denu
-from ICS.unitTwo.LabThree.PartC.ExpressionLoadPartC import loadFile
+from ExpressionLoad import loadFile
 from StringCalculator import calc
 from tkinter import *
 '''
@@ -9,7 +9,7 @@ Author: Dhenushan Ramesh
 Date: Nov 27, 2024
 
 Description:
-The user interface for the Personal Infromation System Application
+The user interface for the Personal Information System Application
 
 '''
 
