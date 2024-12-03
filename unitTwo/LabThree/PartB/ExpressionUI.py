@@ -1,4 +1,3 @@
-#Denu
 from ExpressionLoad import loadFile
 from StringCalculator import calc
 from tkinter import *

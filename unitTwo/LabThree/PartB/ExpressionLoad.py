@@ -1,4 +1,3 @@
-#Denu
 '''
 File: Loader.py
 Author: Dhenushan Ramesh
