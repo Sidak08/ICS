@@ -40,3 +40,6 @@ except FileNotFoundError:
 except ValueError as e:
     print(f"\n Error! {fileName} is corupt")
     print(e)
+
+except Exception as e:
+    print(e)
