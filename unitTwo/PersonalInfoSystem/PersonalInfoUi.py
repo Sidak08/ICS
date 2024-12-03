@@ -11,7 +11,7 @@ the user interface for the personal information program
 '''
 try:
     # fileName = input("Enter the name of the file: ")
-    fileName = "PersonalsInfoFile.txt"
+    fileName = "PersonalInfoFile.txt"
 
     inputData = loadFile(fileName)
 

@@ -18,7 +18,7 @@ try:
     text = ""
     for i in range(len(inputData)):
         output = calc(inputData[i])
-        text = text + output + "\n\n"   
+        text = text + f"{output}\n\n"
     print(text)
     root = Tk()
     root.geometry("350x550")#set window size

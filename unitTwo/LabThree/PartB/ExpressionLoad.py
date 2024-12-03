@@ -10,7 +10,7 @@ the user Interface Program
 
 Function list:
 
-load_file(filename)
+loadFile(filename)
     - function to open a txt file and load the info into a list
     - parameters needed: filename(has to be a string)
     - return: list with string data from the txt file
