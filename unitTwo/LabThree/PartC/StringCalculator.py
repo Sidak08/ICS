@@ -33,6 +33,7 @@ def calc(str: str) -> str:
                 opp = str[i]
                 answer = num1 / num2
 
+
     return "{:,.2f} {} {:,.2f} = {:,.2f}".format(num1, opp, num2, answer)
 
-print(calc("-003.00+0004.56"))
+print(calc("-003.00--0004.56"))
