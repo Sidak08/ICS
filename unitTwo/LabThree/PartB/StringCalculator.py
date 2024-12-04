@@ -1,4 +1,11 @@
-#Sidak
+'''
+File:StringCalculator.py
+Author: Sidak Singh
+Date: Nov 27, 2024
+
+Description:
+The user interface for the Personal Information System Application
+'''
 def calc(str: str) -> float:
     num1 = float(str[:7])
     num2 = float(str[8:])
@@ -17,5 +24,3 @@ def calc(str: str) -> float:
             answer = (num1 % num2)
 
     return round(answer, 2)
-
-print(calc("-003.00+0004.56"))
