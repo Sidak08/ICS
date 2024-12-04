@@ -24,12 +24,12 @@ def loadFile(fileName):
     size = int(size.strip())
     fileInfo = [None]*size
     for i in range(size):
-        fileInfo[i] = fileR.readline().strip() 
+        fileInfo[i] = fileR.readline().strip()
     fileR.close()
     return fileInfo
 
 def saveResults(fileInfo):
-    fileW = open("Questionswithanswers", "w")
+    fileW = open("QuestionsWithAnswers.txt", "w")
     for i in range (len(fileInfo)):
         fileW.write(fileInfo[i])
     fileW.close
