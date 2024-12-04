@@ -18,7 +18,7 @@ try:
     text = ""
     for i in range(len(inputData)):
         output = calc(inputData[i])
-        text = text + f"{output}\n\n"
+        text = text + f"{output}\n"
     print(text)
     saveResults(text)
     root = Tk()
