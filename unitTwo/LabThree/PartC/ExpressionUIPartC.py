@@ -14,12 +14,11 @@ The user interface for the Personal Information System Application
 
 try:
     fileName = input("Enter a file name: ")
-    # fileName = "Questions.txt"
     inputData = loadFile(fileName)
     text = ""
     for i in range(len(inputData)):
         output = calc(inputData[i])
-        text = text + f"{output}\n\n"
+        text = text + f"{output}\n"
     print(text)
     saveResults(text)
     root = Tk()
