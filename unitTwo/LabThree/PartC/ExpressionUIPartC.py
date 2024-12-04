@@ -14,7 +14,6 @@ The user interface for the Personal Information System Application
 
 try:
     fileName = input("Enter a file name: ")
-    # fileName = "Questions.txt"
     inputData = loadFile(fileName)
     text = ""
     for i in range(len(inputData)):
