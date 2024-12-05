@@ -3,7 +3,7 @@ from StringCalculator import calc
 from tkinter import *
 '''
 
-File:PersonalInfoUI.py
+File:ExpressionUI.py
 Author: Dhenushan Ramesh
 Date: Nov 27, 2024
 
