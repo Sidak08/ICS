@@ -17,15 +17,17 @@ loadFile(filename)
 
 '''
 #================ Functions ===================
-
 def loadFile(fileName):
-    fileR = open(fileName,"r")
-    size = fileR.readline()
-    size = int(size.strip())
-    fileInfo = [None]*size
+    """
+    This function reads data from a file and returns it as a list.
+    Parameters: fileName (str): The name of the file to read.
+    Returns: list: A list containing the data from the file.
+    """
+    fileR = open(fileName,"r")  # Open the file for reading
+    size = fileR.readline()  # uses the first line to see size of document
+    size = int(size.strip())  # makes the size an int and removes any spaces/tabs
+    fileInfo = [None]*size  # Create an empty list
     for i in range(size):
-        fileInfo[i] = fileR.readline().strip() 
-    fileR.close()
-    return fileInfo
-
-#================= Main Program ==================
+        fileInfo[i] = fileR.readline().strip()  # Read each line, remove spaces/tabs, and stores in the list
+    fileR.close()  # Closes file
+    return fileInfo  # Return the list with file data

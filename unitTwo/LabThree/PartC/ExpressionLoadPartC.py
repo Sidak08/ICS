@@ -15,21 +15,35 @@ loadFile(filename)
     - parameters needed: filename(has to be a string)
     - return: list with string data from the txt file
 
+saveResults(fileInfo)
+    - function to save results into a new file
+    - parameters needed: fileInfo
+    - return: does not return anything
 '''
 #================ Functions ===================
 
 def loadFile(fileName):
-    fileR = open(fileName,"r")
-    size = fileR.readline()
-    size = int(size.strip())
-    fileInfo = [None]*size
+    """
+    This function reads data from a file and returns it as a list.
+    Parameters: fileName (str): The name of the file to read.
+    Returns: list: A list containing the data from the file.
+    """
+    fileR = open(fileName,"r")  # Open the file for reading
+    size = fileR.readline()  # uses the first line to see size of document
+    size = int(size.strip())  # makes the size an int and removes any spaces/tabs
+    fileInfo = [None]*size  # Create an empty list
     for i in range(size):
-        fileInfo[i] = fileR.readline().strip()
-    fileR.close()
-    return fileInfo
+        fileInfo[i] = fileR.readline().strip()  # Read each line, remove spaces/tabs, and stores in the list
+    fileR.close()  # Closes file
+    return fileInfo  # Return the list with file data
 
 def saveResults(fileInfo):
-    fileW = open("QuestionsWithAnswers.txt", "w")
-    for i in range (len(fileInfo)):
-        fileW.write(fileInfo[i])
-    fileW.close
+    """
+    Saves the results (fileInfo) to a text file named "QuestionsWithAnswers.txt".
+    parameters: fileInfo(list): A list with the results
+    """
+    fileW = open("QuestionsWithAnswers.txt", "w") # Open a file "QuestionsWithAnswers.txt" in write mode
+    for i in range(len(fileInfo)):  # looks through each items in the list
+        fileW.write(fileInfo[i])  # Write each item into the file
+    fileW.close()  # Closes the file
+
