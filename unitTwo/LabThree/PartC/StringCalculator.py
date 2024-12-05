@@ -1,64 +1,83 @@
 '''
-File: Loader.py
-Author: Dhenushan Ramesh
-Date: Nov 30, 2024
+File: StringCalculator.py
+Author: Sidak Singh
+Date: Dec 4, 2024
 
 Description:
-This program recives a file name from the User Interface program and then opens
-the specified text file, reads it and then send the info contained in it back to
-the user Interface Program
+    Takes in a flexible string of max 20 characters containing two numbers and one
+    operator fulfills the operations and returns a string showing the
+    entire equations: number1 operator number2 = answer
+
 '''
-def calc(str: str) -> str:
+def calc(inputStr: str) -> str:
     '''
-    Calc(filename)
-        - function to open a txt file and load the info into a list
-        - parameters needed: filename(has to be a string)
-        - return: list with string data from the txt file
+    calc(inputString)
+        - calculate the answer of the input string
+        - parameters needed: inputStr(type: str):
+            string of 20 characters containing two numbers and one operator
+        - return: type:str - string showing the entire equations or an error value:
+            format: {number1} {operator} {number2} = {answer}
     '''
-    print("inp", str)
-    for i in range(1, len(str)):
-        str = str.strip()
-        match (str[i]):
-            case "+":
-                num1 = float(str[:i])
-                num2 = float(str[i + 1:])
-                opp = str[i]
-                answer = num1 + num2
-                break
-            case "-":
-                num1 = float(str[:i])
-                num2 = float(str[i+1:])
-                opp = str[i]
-                answer = num1 - num2
-                break
-            case "x":
-                num1 = float(str[:i])
-                num2 = float(str[i+1:])
-                opp = str[i]
-                answer = num1 * num2
-                break
-            case "/":
-                num1 = float(str[:i])
-                num2 = float(str[i+1:])
-                opp = str[i]
-                if num2 != 0.00:
-                    answer = num1 / num2
-                else:
-                    answer = "undefined"
-                break
-            case "%":
-                num1 = float(str[:i])
-                num2 = float(str[i+1:])
-                opp = str[i]
-                if num2 != 0.00:
-                    answer = num1 / num2
-                else:
-                    answer = "undefined"
-                break
-    return  formatAnswer(num1, opp, num2, answer)
+    try:
+        for i in range(1, len(inputStr)): #loops the entire string
+            inputStr = inputStr.strip() #removes extra space
+            match (inputStr[i]): #find the opperation
+                case "+": # performs addition
+                    num1 = float(inputStr[:i])
+                    num2 = float(inputStr[i + 1:])
+                    opp = inputStr[i]
+                    answer = num1 + num2
+                    break
+                case "-": # performs substraction
+                    num1 = float(inputStr[:i])
+                    num2 = float(inputStr[i+1:])
+                    opp = inputStr[i]
+                    answer = num1 - num2
+                    break
+                case "x": # performs mutiplication
+                    num1 = float(inputStr[:i])
+                    num2 = float(inputStr[i+1:])
+                    opp = inputStr[i]
+                    answer = num1 * num2
+                    break
+                case "/": # performs division
+                    num1 = float(inputStr[:i])
+                    num2 = float(inputStr[i+1:])
+                    opp = inputStr[i]
+                    if num2 != 0.00: #checks for division by zero
+                        answer = num1 / num2
+                    else:
+                        answer = "undefined"
+                    break
+                case "%": # performs remainder
+                    num1 = float(inputStr[:i])
+                    num2 = float(inputStr[i+1:])
+                    opp = inputStr[i]
+                    if num2 != 0.00: #checks for remainder opperation by zero
+                        answer = num1 % num2
+                    else:
+                        answer = "undefined"
+                    break
+        #formats the answer and returns it
+        return  formatAnswer(num1, opp, num2, answer)
+    except ValueError as valueError: #checks for value errors
+        return f"Error Invalid Value: {str(valueError)}"
+    except Exception as e: #checks for any errors
+        return f"Unexpected error: {str(e)}"
 
 def formatAnswer(num1, opp, num2, answer):
-    if answer != "undefined":
+    '''
+    formatAnswer(num1, opp, num2, answer)
+        - formats the values into a equation with 2 decimal places
+        - parameters needed:
+            num1 = type:float - the first number of the equation
+            opp = type:str - the opperation being performed
+            num2 = type:float - the second number of the equation
+            answer = type:float - answer to the eqation
+        - return: type:str - string showing the entire equations:
+            format: {number1} {operator} {number2} = {answer}
+    '''
+    if answer != "undefined": #checks if the answer is undfined
         return "{:,.2f} {} {:,.2f} = {:,.2f}".format(num1, opp, num2, answer)
-    else:
+    else: #returns formatted answer
         return "{:,.2f} {} {:,.2f} = {}".format(num1, opp, num2, answer)
