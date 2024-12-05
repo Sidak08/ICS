@@ -19,12 +19,11 @@ try:
     for i in range(len(inputData)):
         output = calc(inputData[i])
         text = text + f"{output}\n"
-    print(text)
     saveResults(text)
     root = Tk()
-    root.geometry("350x550")#set window size
+    root.geometry("450x550")#set window size
     root.title("String Calulator")
-    textOutput = Text(root, height=40, width=40)
+    textOutput = Text(root, height=80, width=80)
     textOutput.grid(column=0, row=0, padx=50, pady=20)
     textOutput.insert(END, text)
     textOutput.config(state=DISABLED)
