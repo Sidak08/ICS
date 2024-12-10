@@ -22,19 +22,26 @@ saveResults(fileInfo)
 '''
 #================ Functions ===================
 
-def loadFile(fileName):
-    fileR = open(fileName,"r") 
-    size = fileR.readline()  # uses the first line to see size of document
-    size = int(size.strip())  # makes the size an int and removes any spaces/tabs
-    fileInfo = [None]*size  # Create an empty list
-    for i in range(size):
-        fileInfo[i] = fileR.readline().strip()  # Read each line, remove spaces/tabs, and stores in the list
-    fileR.close()
-    return fileInfo  # Return the list with file data
+def load_file(file_name: str) -> list:
+    phrases = []
+    try:
+        fileR = open(file_name,"r") 
+        num_phrases = fileR.readline()
+        num_phrases = int(num_phrases.strip())
+        for _ in range(num_phrases):
+            line = fileR.readline()
+            line = line.strip()
+            phrases.append(line)
+    except FileNotFoundError:
+        print(f"Error: File '{file_name}' not found.")
+    return phrases
 
-def saveResults(fileInfo):
-    fileW = open("QuestionsWithAnswers.txt", "w") # Open a file called "QuestionsWithAnswers.txt" in write mode
-    for i in range(len(fileInfo)):  # looks through each items in the list
-        fileW.write(fileInfo[i])  # Write each item into the file
-    fileW.close()
-
+def save_to_file(filename: str, output_data: list) -> None:
+    """Saves the phrases with keys to a new file."""
+    try:
+        with open(filename, "w") as file:
+            file.write(f"{len(output_data)}\n")
+            for phrase in output_data:
+                file.write(phrase + "\n")
+    except FileNotFoundError:
+        print(f"Error: Could not open file '{filename}' for writing.")
