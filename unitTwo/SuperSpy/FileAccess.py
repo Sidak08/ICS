@@ -40,7 +40,7 @@ def load_file(file_name: str) -> list:
 def save_to_file(filename: str, output_data: list) -> None:
     try:
         fileR = open(filename, "w")
-        fileR.write(len(output_data))
+        fileR.write(str(len(output_data)) + "\n")
         for phrase in output_data:
             fileR.write(phrase + "\n")
     except FileNotFoundError as e:
@@ -49,6 +49,9 @@ def save_to_file(filename: str, output_data: list) -> None:
 
 
 #------------- Main Program -------------------
-filename = input("What is the name of the file: ")
-phrases = load_file(filename)
-print(phrases)
+if __name__ == "__main__":
+    filename = input("What is the name of the file: ")
+    phrases = load_file(filename)
+    print(phrases)
+    outputfile = input("Enter a output file name: ")
+    save_to_file(outputfile, phrases)
