@@ -32,16 +32,23 @@ def load_file(file_name: str) -> list:
             line = fileR.readline()
             line = line.strip()
             phrases.append(line)
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         print(f"Error: File '{file_name}' not found.")
+        print(e)
     return phrases
 
 def save_to_file(filename: str, output_data: list) -> None:
-    """Saves the phrases with keys to a new file."""
     try:
-        with open(filename, "w") as file:
-            file.write(f"{len(output_data)}\n")
-            for phrase in output_data:
-                file.write(phrase + "\n")
-    except FileNotFoundError:
-        print(f"Error: Could not open file '{filename}' for writing.")
+        fileR = open(filename, "w")
+        fileR.write(len(output_data))
+        for phrase in output_data:
+            fileR.write(phrase + "\n")
+    except FileNotFoundError as e:
+        print(f"Error: Could not open the file '{filename}' for writing.")
+        print(e)
+
+
+#------------- Main Program -------------------
+filename = input("What is the name of the file: ")
+phrases = load_file(filename)
+print(phrases)
