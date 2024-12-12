@@ -1,4 +1,6 @@
 from tkinter import *
+from Encryption import encoder, decoder
+from FileAccess import load_file, save_to_file
 '''
 
 File: ExpressionLoad.py
@@ -37,10 +39,9 @@ if __name__ == "__main__":
     key = get_key(phrase)
     print(key)
 
-def button_click():
-    print(hi)
 
 root = Tk()
+root.geometry("1000x600")
 root.title("Super Spy Program")
 root.configure(bg="black")
 
@@ -87,8 +88,6 @@ EncryptionK.grid(row=3, column=3, padx=10, pady=10)
 entry6 = Entry(root, width=40, bg="#3B3B3B", fg="white", border=0)
 entry6.grid(row=3, column=4, padx=10, pady=10)
 
-button = Button(root, text="Done", command=button_click, bg="black", fg="white") 
-button.grid(row=4, column=1, padx=10, pady=10)
 
 Title = Label(root, text="Decrypt Message", width=20, height=1, bg="black", fg="white")
 Title.grid(row=5, column=0, padx=10, pady=10)
