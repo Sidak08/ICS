@@ -1,6 +1,7 @@
 from tkinter import *
-from Encryption import encoder, decoder
+from Encryption import encoder, decoder, is_not_a_letter
 from FileAccess import load_file, save_to_file
+import time
 '''
 
 File: ExpressionLoad.py
@@ -12,7 +13,7 @@ Date: Nov 30, 2024
 def check_key(encrypt_key: int) -> bool:
     if -2000000000 <= encrypt_key <= 2000000000:
         return True
-    else: 
+    else:
         return False
 
 def get_key (phrase: str)-> int:
@@ -44,6 +45,7 @@ root = Tk()
 root.geometry("1000x600")
 root.title("Super Spy Program")
 root.configure(bg="black")
+phrases = []
 
 Title = Label(root, text="Encrypt Message", width=20, height=1, bg="black", fg="white")
 Title.grid(row=0, column=0, padx=10, pady=10)
@@ -54,6 +56,22 @@ FileN.grid(row=1, column=0, padx=10, pady=10)
 
 entry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 entry.grid(row=1, column=1, padx=10, pady=10)
+
+def key_pressed(event):
+    global entry, phrases
+    fileName = entry.get()
+    phrases = load_file(fileName)
+    answer = []
+
+    for i in range(len(phrases)):
+        key = get_key(phrases[i])
+        answer.append(encoder(phrases[i], key))
+    save_to_file("test", answer)
+    # print(fileName)
+
+
+entry.bind("<KeyRelease>", key_pressed)
+
 
 FileO = Label(root, text="Enter Output File name:", width=20, height=2, bg="black", fg="white")
 FileO.grid(row=2, column=0, padx=10, pady=10)
@@ -88,7 +106,6 @@ EncryptionK.grid(row=3, column=3, padx=10, pady=10)
 entry6 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 entry6.grid(row=3, column=4, padx=10, pady=10)
 
-
 Title = Label(root, text="Decrypt Message", width=20, height=1, bg="black", fg="white")
 Title.grid(row=5, column=0, padx=10, pady=10)
 Title.config(font=(25))
@@ -96,8 +113,8 @@ Title.config(font=(25))
 FileN = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
 FileN.grid(row=6, column=0, padx=10, pady=10)
 
-entry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry.grid(row=6, column=1, padx=10, pady=10)
+# entry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+# entry.grid(row=6, column=1, padx=10, pady=10)
 
 FileO = Label(root, text="Enter Output File name:", width=20, height=2, bg="black", fg="white")
 FileO.grid(row=7, column=0, padx=10, pady=10)
@@ -131,6 +148,15 @@ EncryptionK.grid(row=8, column=3, padx=10, pady=10)
 
 entry6 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 entry6.grid(row=8, column=4, padx=10, pady=10)
+
+# def button_click():
+#     filename = entry.get()
+#     print(filename)
+
+# button = Button(root, text="HI", width=25, bg="#3B3B3B", fg="white", command=button_click)
+# button.grid(row=9, column=1, padx=10, pady=10)
+
+
 
 # Run the application
 root.mainloop()
