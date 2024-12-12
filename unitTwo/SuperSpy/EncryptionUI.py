@@ -100,8 +100,8 @@ EncryptKey.grid(row=2, column=3, padx=10, pady=10)
 entry5 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 entry5.grid(row=2, column=4, padx=10, pady=10)
 
-EncryptionK = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK.grid(row=3, column=3, padx=10, pady=10)
+EncryptionK2 = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
+EncryptionK2.grid(row=3, column=3, padx=10, pady=10)
 
 entry6 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 entry6.grid(row=3, column=4, padx=10, pady=10)
@@ -110,44 +110,44 @@ Title = Label(root, text="Decrypt Message", width=20, height=1, bg="black", fg="
 Title.grid(row=5, column=0, padx=10, pady=10)
 Title.config(font=(25))
 
-FileN = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
-FileN.grid(row=6, column=0, padx=10, pady=10)
+FileN2 = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
+FileN2.grid(row=6, column=0, padx=10, pady=10)
 
-# entry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-# entry.grid(row=6, column=1, padx=10, pady=10)
+entry7 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+entry7.grid(row=6, column=1, padx=10, pady=10)
 
-FileO = Label(root, text="Enter Output File name:", width=20, height=2, bg="black", fg="white")
-FileO.grid(row=7, column=0, padx=10, pady=10)
+FileO2 = Label(root, text="Enter Output File name:", width=20, height=2, bg="black", fg="white")
+FileO2.grid(row=7, column=0, padx=10, pady=10)
 
-entry2 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry2.grid(row=7, column=1, padx=10, pady=10)
+entry8 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+entry8.grid(row=7, column=1, padx=10, pady=10)
 
-EncryptionK = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK.grid(row=8, column=0, padx=10, pady=10)
+EncryptionK3 = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
+EncryptionK3.grid(row=8, column=0, padx=10, pady=10)
 
-entry3 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry3.grid(row=8, column=1, padx=10, pady=10)
+entry9 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+entry9.grid(row=8, column=1, padx=10, pady=10)
 
-orblock = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
-orblock.grid(row=7, column=2, padx=10, pady=10)
+orblock2 = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
+orblock2.grid(row=7, column=2, padx=10, pady=10)
 
-message = Label(root, text="Enter message:", width=20, height=2, bg="black", fg="white")
-message.grid(row=6, column=3, padx=10, pady=10)
+message2 = Label(root, text="Enter message:", width=20, height=2, bg="black", fg="white")
+message2.grid(row=6, column=3, padx=10, pady=10)
 
-entry4 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry4.grid(row=6, column=4, padx=10, pady=10)
+entry10 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+entry10.grid(row=6, column=4, padx=10, pady=10)
 
-EncryptKey = Label(root, text="Encrypted Output:", width=20, height=2, bg="black", fg="white")
-EncryptKey.grid(row=7, column=3, padx=10, pady=10)
+EncryptKey2 = Label(root, text="Encrypted Output:", width=20, height=2, bg="black", fg="white")
+EncryptKey2.grid(row=7, column=3, padx=10, pady=10)
 
-entry5 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry5.grid(row=7, column=4, padx=10, pady=10)
+entry11 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+entry11.grid(row=7, column=4, padx=10, pady=10)
 
-EncryptionK = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK.grid(row=8, column=3, padx=10, pady=10)
+EncryptionK4 = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
+EncryptionK4.grid(row=8, column=3, padx=10, pady=10)
 
-entry6 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry6.grid(row=8, column=4, padx=10, pady=10)
+entry12 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+entry12.grid(row=8, column=4, padx=10, pady=10)
 
 # def button_click():
 #     filename = entry.get()
