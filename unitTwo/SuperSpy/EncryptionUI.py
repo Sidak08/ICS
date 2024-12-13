@@ -145,20 +145,24 @@ decryptAdditionalEncryptionKeyLabel.grid(row=8, column=3, padx=10, pady=10)
 decryptAdditionalEncryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 decryptAdditionalEncryptionKeyEntry.grid(row=8, column=4, padx=10, pady=10)
 
-encryption_mode = StringVar(value="auto")
-key = 0
+encryption_mode = "auto"
+
+def update_encryption_mode(mode):
+    global encryption_mode
+    encryption_mode = mode
+    messageEntryFunc()
 
 def messageEntryFunc(event=None):
-    global messageEntry, encryptedOutputEntry, additionalEncryptionKeyEntry, key
-    if encryption_mode.get() == "manual":
+    global messageEntry, encryptedOutputEntry, additionalEncryptionKeyEntry
+    key = 0
+
+    if encryption_mode == "manual":
         additionalEncryptionKeyEntry.config(state=NORMAL)
         if additionalEncryptionKeyEntry.get() != "" and check_key(int(additionalEncryptionKeyEntry.get())):
             key = int(additionalEncryptionKeyEntry.get())
-            additionalEncryptionKeyEntry.config(state=NORMAL)
             additionalEncryptionKeyEntry.delete(0, END)
             additionalEncryptionKeyEntry.insert(0, str(key))
-
-    elif encryption_mode.get() == "auto":
+    elif encryption_mode == "auto":
         key = genEncryptionKey(messageEntry.get())
         additionalEncryptionKeyEntry.config(state=NORMAL)
         additionalEncryptionKeyEntry.delete(0, END)
@@ -170,21 +174,20 @@ def messageEntryFunc(event=None):
     encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
     encryptedOutputEntry.config(state=DISABLED)
 
-
-encryptionModeLabel = Label(root, text="Encryption Mode:", width=20, height=2, bg="black", fg="white")
-encryptionModeLabel.grid(row=4, column=0, padx=10, pady=10)
-
 autoGenRadio = Radiobutton(
-    root, text="Auto Generate Key", variable=encryption_mode, value="auto", bg="black", fg="white",
-    command=messageEntryFunc
+    root, text="Auto Generate Key", value="auto", bg="black", fg="white",
+    command=lambda: update_encryption_mode("auto")
 )
 autoGenRadio.grid(row=4, column=1, padx=10, pady=10)
 
 manualKeyRadio = Radiobutton(
-    root, text="Manual Key Entry", variable=encryption_mode, value="manual", bg="black", fg="white",
-    command=messageEntryFunc
+    root, text="Manual Key Entry", value="manual", bg="black", fg="white",
+    command=lambda: update_encryption_mode("manual")
 )
 manualKeyRadio.grid(row=4, column=2, padx=10, pady=10)
+
+
+autoGenRadio.select()
 encryptedOutputEntry.config(state=DISABLED)
 additionalEncryptionKeyEntry.config(state=DISABLED)
 
