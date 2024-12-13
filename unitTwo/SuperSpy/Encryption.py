@@ -4,7 +4,18 @@ CAPITAL_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 def genEncryptionKey(sentence: str) -> int:
-    return len(sentence)
+    numCapitalLetters = 0
+    numLowercaseLetters = 0
+    numSpecialCharacters = 0
+    for i in range(len(sentence)):
+        if CAPITAL_LETTERS.find(sentence[i]) != -1:
+            numCapitalLetters += 1
+        elif LOWERCASE_LETTERS.find(sentence[i]) != -1:
+            numLowercaseLetters += 1
+        elif is_not_a_letter(sentence[i]):
+            numSpecialCharacters += 1
+
+    return ((numCapitalLetters * 2 + numLowercaseLetters * 3 + numSpecialCharacters * 4) ** 2) + (numCapitalLetters + numLowercaseLetters + numSpecialCharacters)
 
 def is_not_a_letter(character: str) -> bool:
     if CAPITAL_LETTERS.find(character) != -1 or LOWERCASE_LETTERS.find(character) != -1:

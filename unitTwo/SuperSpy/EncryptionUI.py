@@ -1,5 +1,5 @@
 from tkinter import *
-from Encryption import encoder, decoder, is_not_a_letter
+from Encryption import encoder, decoder, is_not_a_letter, genEncryptionKey
 from FileAccess import load_file, save_to_file
 import time
 '''
@@ -10,152 +10,201 @@ Date: Nov 30, 2024
 
 '''
 
-def check_key(encrypt_key: int) -> bool:
-    if -2000000000 <= encrypt_key <= 2000000000:
+def check_key(encryptKey: int) -> bool:
+    if -2000000000 <= encryptKey <= 2000000000:
         return True
     else:
         return False
 
-def get_key (phrase: str)-> int:
+def get_key(phrase: str) -> int:
     key = phrase[0:11]
     return int(key)
 
-def put_key_in_range(encrypt_key: int) -> int:
-    while encrypt_key < -26 or encrypt_key > 26:
-        if encrypt_key < -26:
-            encrypt_key = encrypt_key + 26
-        elif encrypt_key > 26:
-            encrypt_key = encrypt_key - 26
-    return int(encrypt_key)
-
+def put_key_in_range(encryptKey: int) -> int:
+    while encryptKey < -26 or encryptKey > 26:
+        if encryptKey < -26:
+            encryptKey += 26
+        elif encryptKey > 26:
+            encryptKey -= 26
+    return int(encryptKey)
 
 if __name__ == "__main__":
     num = 500
     num2 = put_key_in_range(num)
-    print (num2)
+    print(num2)
     num = 20000000000000
     checker = check_key(num)
-    print (checker)
+    print(checker)
     phrase = ("10203003030Howisyourday")
     key = get_key(phrase)
     print(key)
 
-
 root = Tk()
-root.geometry("1000x600")
+root.geometry("1200x600")
 root.title("Super Spy Program")
 root.configure(bg="black")
 phrases = []
 
-Title = Label(root, text="Encrypt Message", width=20, height=1, bg="black", fg="white")
-Title.grid(row=0, column=0, padx=10, pady=10)
-Title.config(font=(25))
+titleLabel = Label(root, text="Encrypt Message", width=20, height=1, bg="black", fg="white")
+titleLabel.grid(row=0, column=0, padx=10, pady=10)
+# titleLabel.config(font=25)–
 
-FileN = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
-FileN.grid(row=1, column=0, padx=10, pady=10)
+fileNameLabel = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
+fileNameLabel.grid(row=1, column=0, padx=10, pady=10)
 
-entry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry.grid(row=1, column=1, padx=10, pady=10)
+fileNameEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+fileNameEntry.grid(row=1, column=1, padx=10, pady=10)
 
-def key_pressed(event):
-    global entry, phrases
-    fileName = entry.get()
+def fileNameEntryFunc(event):
+    global fileNameEntry, phrases
+    fileName = fileNameEntry.get()
     phrases = load_file(fileName)
     answer = []
 
     for i in range(len(phrases)):
-        key = get_key(phrases[i])
+        key = getKey(phrases[i])
         answer.append(encoder(phrases[i], key))
     save_to_file("test", answer)
-    # print(fileName)
+
+fileNameEntry.bind("<KeyRelease>", fileNameEntryFunc)
+
+outputFileNameLabel = Label(root, text="Enter Output File Name:", width=20, height=2, bg="black", fg="white")
+outputFileNameLabel.grid(row=2, column=0, padx=10, pady=10)
+
+outputFileNameEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+outputFileNameEntry.grid(row=2, column=1, padx=10, pady=10)
+
+encryptionKeyLabel = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
+encryptionKeyLabel.grid(row=3, column=0, padx=10, pady=10)
+
+encryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+encryptionKeyEntry.grid(row=3, column=1, padx=10, pady=10)
+
+orLabel = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
+orLabel.grid(row=2, column=2, padx=10, pady=10)
+
+messageLabel = Label(root, text="Enter Message:", width=20, height=2, bg="black", fg="white")
+messageLabel.grid(row=1, column=3, padx=10, pady=10)
+
+messageEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+messageEntry.grid(row=1, column=4, padx=10, pady=10)
 
 
-entry.bind("<KeyRelease>", key_pressed)
+encryptedOutputLabel = Label(root, text="Encrypted Output:", width=20, height=2, bg="black", fg="white")
+encryptedOutputLabel.grid(row=2, column=3, padx=10, pady=10)
+
+encryptedOutputEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+encryptedOutputEntry.grid(row=2, column=4, padx=10, pady=10)
+
+additionalEncryptionKeyLabel = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
+additionalEncryptionKeyLabel.grid(row=3, column=3, padx=10, pady=10)
+
+additionalEncryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+additionalEncryptionKeyEntry.grid(row=3, column=4, padx=10, pady=10)
+
+decryptTitleLabel = Label(root, text="Decrypt Message", width=20, height=1, bg="black", fg="white")
+decryptTitleLabel.grid(row=5, column=0, padx=10, pady=10)
+decryptTitleLabel.config(font=(25))
+
+decryptFileNameLabel = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
+decryptFileNameLabel.grid(row=6, column=0, padx=10, pady=10)
+
+decryptFileNameEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+decryptFileNameEntry.grid(row=6, column=1, padx=10, pady=10)
+
+decryptOutputFileNameLabel = Label(root, text="Enter Output File Name:", width=20, height=2, bg="black", fg="white")
+decryptOutputFileNameLabel.grid(row=7, column=0, padx=10, pady=10)
+
+decryptOutputFileNameEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+decryptOutputFileNameEntry.grid(row=7, column=1, padx=10, pady=10)
+
+decryptEncryptionKeyLabel = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
+decryptEncryptionKeyLabel.grid(row=8, column=0, padx=10, pady=10)
+
+decryptEncryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+decryptEncryptionKeyEntry.grid(row=8, column=1, padx=10, pady=10)
+
+decryptOrLabel = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
+decryptOrLabel.grid(row=7, column=2, padx=10, pady=10)
+
+decryptMessageLabel = Label(root, text="Enter Message:", width=20, height=2, bg="black", fg="white")
+decryptMessageLabel.grid(row=6, column=3, padx=10, pady=10)
+
+decryptMessageEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+decryptMessageEntry.grid(row=6, column=4, padx=10, pady=10)
+
+decryptEncryptedOutputLabel = Label(root, text="Decrypted Output:", width=20, height=2, bg="black", fg="white")
+decryptEncryptedOutputLabel.grid(row=7, column=3, padx=10, pady=10)
+
+decryptEncryptedOutputEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+decryptEncryptedOutputEntry.grid(row=7, column=4, padx=10, pady=10)
+
+decryptAdditionalEncryptionKeyLabel = Label(root, text="Enter Decryption Key:", width=20, height=2, bg="black", fg="white")
+decryptAdditionalEncryptionKeyLabel.grid(row=8, column=3, padx=10, pady=10)
+
+decryptAdditionalEncryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
+decryptAdditionalEncryptionKeyEntry.grid(row=8, column=4, padx=10, pady=10)
+
+encryption_mode = StringVar(value="auto")
+key = 0
+
+def messageEntryFunc(event=None):
+    global messageEntry, encryptedOutputEntry, additionalEncryptionKeyEntry, key
+    if encryption_mode.get() == "manual":
+        additionalEncryptionKeyEntry.config(state=NORMAL)
+        if additionalEncryptionKeyEntry.get() != "" and check_key(int(additionalEncryptionKeyEntry.get())):
+            key = int(additionalEncryptionKeyEntry.get())
+            additionalEncryptionKeyEntry.config(state=NORMAL)
+            additionalEncryptionKeyEntry.delete(0, END)
+            additionalEncryptionKeyEntry.insert(0, str(key))
+
+    elif encryption_mode.get() == "auto":
+        key = genEncryptionKey(messageEntry.get())
+        additionalEncryptionKeyEntry.config(state=NORMAL)
+        additionalEncryptionKeyEntry.delete(0, END)
+        additionalEncryptionKeyEntry.insert(0, str(key))
+        additionalEncryptionKeyEntry.config(state=DISABLED)
+
+    encryptedOutputEntry.config(state=NORMAL)
+    encryptedOutputEntry.delete(0, END)
+    encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
+    encryptedOutputEntry.config(state=DISABLED)
 
 
-FileO = Label(root, text="Enter Output File name:", width=20, height=2, bg="black", fg="white")
-FileO.grid(row=2, column=0, padx=10, pady=10)
+encryptionModeLabel = Label(root, text="Encryption Mode:", width=20, height=2, bg="black", fg="white")
+encryptionModeLabel.grid(row=4, column=0, padx=10, pady=10)
 
-entry2 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry2.grid(row=2, column=1, padx=10, pady=10)
+autoGenRadio = Radiobutton(
+    root, text="Auto Generate Key", variable=encryption_mode, value="auto", bg="black", fg="white",
+    command=messageEntryFunc
+)
+autoGenRadio.grid(row=4, column=1, padx=10, pady=10)
 
-EncryptionK = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK.grid(row=3, column=0, padx=10, pady=10)
+manualKeyRadio = Radiobutton(
+    root, text="Manual Key Entry", variable=encryption_mode, value="manual", bg="black", fg="white",
+    command=messageEntryFunc
+)
+manualKeyRadio.grid(row=4, column=2, padx=10, pady=10)
+encryptedOutputEntry.config(state=DISABLED)
+additionalEncryptionKeyEntry.config(state=DISABLED)
 
-entry3 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry3.grid(row=3, column=1, padx=10, pady=10)
+messageEntry.bind("<KeyRelease>", messageEntryFunc)
+additionalEncryptionKeyEntry.bind("<KeyRelease>", messageEntryFunc)
 
-orblock = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
-orblock.grid(row=2, column=2, padx=10, pady=10)
+def decryptMessageEntryFunc(e):
+    global decryptMessageEntry, decryptEncryptedOutputEntry, decryptAdditionalEncryptionKeyEntry
+    key = 0
+    if decryptAdditionalEncryptionKeyEntry.get() != "" and check_key(int(decryptAdditionalEncryptionKeyEntry.get())):
+        key = int(decryptAdditionalEncryptionKeyEntry.get())
+    decryptEncryptedOutputEntry.config(state=NORMAL)
+    decryptEncryptedOutputEntry.delete(0, END)
+    decryptEncryptedOutputEntry.insert(0, decoder(decryptMessageEntry.get(), key))
+    decryptEncryptedOutputEntry.config(state=DISABLED)
 
-message = Label(root, text="Enter message:", width=20, height=2, bg="black", fg="white")
-message.grid(row=1, column=3, padx=10, pady=10)
 
-entry4 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry4.grid(row=1, column=4, padx=10, pady=10)
-
-EncryptKey = Label(root, text="Encrypted Output:", width=20, height=2, bg="black", fg="white")
-EncryptKey.grid(row=2, column=3, padx=10, pady=10)
-
-entry5 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry5.grid(row=2, column=4, padx=10, pady=10)
-
-EncryptionK2 = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK2.grid(row=3, column=3, padx=10, pady=10)
-
-entry6 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry6.grid(row=3, column=4, padx=10, pady=10)
-
-Title = Label(root, text="Decrypt Message", width=20, height=1, bg="black", fg="white")
-Title.grid(row=5, column=0, padx=10, pady=10)
-Title.config(font=(25))
-
-FileN2 = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
-FileN2.grid(row=6, column=0, padx=10, pady=10)
-
-entry7 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry7.grid(row=6, column=1, padx=10, pady=10)
-
-FileO2 = Label(root, text="Enter Output File name:", width=20, height=2, bg="black", fg="white")
-FileO2.grid(row=7, column=0, padx=10, pady=10)
-
-entry8 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry8.grid(row=7, column=1, padx=10, pady=10)
-
-EncryptionK3 = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK3.grid(row=8, column=0, padx=10, pady=10)
-
-entry9 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry9.grid(row=8, column=1, padx=10, pady=10)
-
-orblock2 = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
-orblock2.grid(row=7, column=2, padx=10, pady=10)
-
-message2 = Label(root, text="Enter message:", width=20, height=2, bg="black", fg="white")
-message2.grid(row=6, column=3, padx=10, pady=10)
-
-entry10 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry10.grid(row=6, column=4, padx=10, pady=10)
-
-EncryptKey2 = Label(root, text="Encrypted Output:", width=20, height=2, bg="black", fg="white")
-EncryptKey2.grid(row=7, column=3, padx=10, pady=10)
-
-entry11 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry11.grid(row=7, column=4, padx=10, pady=10)
-
-EncryptionK4 = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-EncryptionK4.grid(row=8, column=3, padx=10, pady=10)
-
-entry12 = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-entry12.grid(row=8, column=4, padx=10, pady=10)
-
-# def button_click():
-#     filename = entry.get()
-#     print(filename)
-
-# button = Button(root, text="HI", width=25, bg="#3B3B3B", fg="white", command=button_click)
-# button.grid(row=9, column=1, padx=10, pady=10)
-
+decryptEncryptedOutputEntry.config(state=DISABLED)
+decryptMessageEntry.bind("<KeyRelease>", decryptMessageEntryFunc)
+decryptAdditionalEncryptionKeyEntry.bind("<KeyRelease>", decryptMessageEntryFunc)
 
 
 # Run the application
