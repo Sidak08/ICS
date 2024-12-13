@@ -186,7 +186,6 @@ manualKeyRadio = Radiobutton(
 )
 manualKeyRadio.grid(row=4, column=2, padx=10, pady=10)
 
-
 autoGenRadio.select()
 encryptedOutputEntry.config(state=DISABLED)
 additionalEncryptionKeyEntry.config(state=DISABLED)
@@ -203,7 +202,6 @@ def decryptMessageEntryFunc(e):
     decryptEncryptedOutputEntry.delete(0, END)
     decryptEncryptedOutputEntry.insert(0, decoder(decryptMessageEntry.get(), key))
     decryptEncryptedOutputEntry.config(state=DISABLED)
-
 
 decryptEncryptedOutputEntry.config(state=DISABLED)
 decryptMessageEntry.bind("<KeyRelease>", decryptMessageEntryFunc)
