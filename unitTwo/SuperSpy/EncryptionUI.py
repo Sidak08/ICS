@@ -47,7 +47,7 @@ phrases = []
 
 titleLabel = Label(root, text="Encrypt Message", width=20, height=1, bg="black", fg="white")
 titleLabel.grid(row=0, column=0, padx=10, pady=10)
-# titleLabel.config(font=25)–
+titleLabel.config(font=25)
 
 fileNameLabel = Label(root, text="Enter File Name:", width=20, height=3, bg="black", fg="white")
 fileNameLabel.grid(row=1, column=0, padx=10, pady=10)
@@ -74,11 +74,14 @@ outputFileNameLabel.grid(row=2, column=0, padx=10, pady=10)
 outputFileNameEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 outputFileNameEntry.grid(row=2, column=1, padx=10, pady=10)
 
-encryptionKeyLabel = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-encryptionKeyLabel.grid(row=3, column=0, padx=10, pady=10)
+enterbuttondescript = Label(root, text="When done typing click this ->", width=30, height=2, bg="black", fg="white")
+enterbuttondescript.grid(row=3, column=0, padx=10, pady=10)
 
-encryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-encryptionKeyEntry.grid(row=3, column=1, padx=10, pady=10)
+enterbutton = Button(root, text="Done", width=20, bg="#3B3B3B", fg="white", border=0)
+enterbutton.grid(row=3, column=1, padx=10, pady=10)
+
+encryptionmode = Label(root, text="Encryption Mode", width=20, height=2, bg="black", fg="white")
+encryptionmode.grid(row=4, column=0, padx=10, pady=10)
 
 orLabel = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
 orLabel.grid(row=2, column=2, padx=10, pady=10)
@@ -118,11 +121,11 @@ decryptOutputFileNameLabel.grid(row=7, column=0, padx=10, pady=10)
 decryptOutputFileNameEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
 decryptOutputFileNameEntry.grid(row=7, column=1, padx=10, pady=10)
 
-decryptEncryptionKeyLabel = Label(root, text="Enter Encryption Key:", width=20, height=2, bg="black", fg="white")
-decryptEncryptionKeyLabel.grid(row=8, column=0, padx=10, pady=10)
+decryptenterbuttondescript = Label(root, text="When done typing click this ->", width=30, height=2, bg="black", fg="white")
+decryptenterbuttondescript.grid(row=8, column=0, padx=10, pady=10)
 
-decryptEncryptionKeyEntry = Entry(root, width=25, bg="#3B3B3B", fg="white", border=0)
-decryptEncryptionKeyEntry.grid(row=8, column=1, padx=10, pady=10)
+decryptenterbutton = Button(root, text="Done", width=20, bg="#3B3B3B", fg="white", border=0)
+decryptenterbutton.grid(row=8, column=1, padx=10, pady=10)
 
 decryptOrLabel = Label(root, text="OR", width=20, height=2, bg="black", fg="white")
 decryptOrLabel.grid(row=7, column=2, padx=10, pady=10)
@@ -155,7 +158,6 @@ def update_encryption_mode(mode):
 def messageEntryFunc(event=None):
     global messageEntry, encryptedOutputEntry, additionalEncryptionKeyEntry
     key = 0
-
     if encryption_mode == "manual":
         additionalEncryptionKeyEntry.config(state=NORMAL)
         if additionalEncryptionKeyEntry.get() != "" and check_key(int(additionalEncryptionKeyEntry.get())):
@@ -179,6 +181,18 @@ autoGenRadio = Radiobutton(
     command=lambda: update_encryption_mode("auto")
 )
 autoGenRadio.grid(row=4, column=1, padx=10, pady=10)
+
+manualKeyRadio = Radiobutton(
+    root, text="Manual Key Entry", value="manual", bg="black", fg="white",
+    command=lambda: update_encryption_mode("manual")
+)
+manualKeyRadio.grid(row=9, column=2, padx=10, pady=10)
+
+autoGenRadio = Radiobutton(
+    root, text="Auto Generate Key", value="auto", bg="black", fg="white",
+    command=lambda: update_encryption_mode("auto")
+)
+autoGenRadio.grid(row=9, column=1, padx=10, pady=10)
 
 manualKeyRadio = Radiobutton(
     root, text="Manual Key Entry", value="manual", bg="black", fg="white",
