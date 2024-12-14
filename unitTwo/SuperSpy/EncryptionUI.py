@@ -1,7 +1,6 @@
 from tkinter import *
-from Encryption import encoder, decoder, is_not_a_letter, genEncryptionKey
+from Encryption import encoder, decoder, genEncryptionKey
 from FileAccess import load_file, save_to_file
-import time
 
 root = Tk()
 root.geometry("1200x600")
