@@ -3,27 +3,43 @@ from Encryption import encoder, decoder, genEncryptionKey
 from FileAccess import load_file, save_to_file
 #h
 root = Tk()
-root.geometry("1200x600")
+root.geometry("1000x600")
 root.title("Super Spy Program")
 root.configure(bg="black")
 
 def check_key(encryptKey: int) -> bool:
-    if -2000000000 <= encryptKey <= 2000000000:
-        return True
-    else:
+    try:
+        if -2000000000 <= encryptKey <= 2000000000:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"Error in check_key: {e}")
         return False
 
 def get_key(phrase: str) -> int:
-    key = phrase[0:11]
-    return int(key)
+    try:
+        key = phrase[0:11]
+        return int(key)
+    except ValueError as e:
+        print(f"ValueError in get_key: {e}. Unable to change the key to an integer.")
+        return 0 
+    except Exception as e2:
+        print(f"Unexpected error in get_key: {e2}")
+        return 0
 
 def put_key_in_range(encryptKey: int) -> int:
-    while encryptKey < -26 or encryptKey > 26:
-        if encryptKey < -26:
-            encryptKey += 26
-        elif encryptKey > 26:
-            encryptKey -= 26
-    return int(encryptKey)
+    try:
+        while encryptKey < -26 or encryptKey > 26:
+            if encryptKey < -26:
+                encryptKey += 26
+            elif encryptKey > 26:
+                encryptKey -= 26
+        return int(encryptKey)
+    except Exception as e:
+        print(f"Error in put_key_in_range: {e}")
+        return encryptKey 
+    
 
 if __name__ == "__main__":
     num = 500
@@ -38,25 +54,61 @@ if __name__ == "__main__":
 
 def encryptFile():
     global fileNameEntry, outputFileNameEntry
-    phrases = load_file(fileNameEntry.get())
+    try:
+        phrases = load_file(fileNameEntry.get())
+    except Exception as e:
+        print(f"Problem with loading file: {e}")
+        return
+
     answer = []
-    for i in range(len(phrases)):
-        key = get_key(phrases[i])
-        if (check_key(key)):
-            key = put_key_in_range(key)
-            answer.append(encoder(phrases[i], key))
-    save_to_file(outputFileNameEntry.get(), answer)
+    try:
+        for i in range(len(phrases)):
+            try:
+                key = get_key(phrases[i])
+                if check_key(key):
+                    key = put_key_in_range(key)
+                    answer.append(encoder(phrases[i], key))
+            except ValueError as e:
+                print(f"There was a ValueError during encryption for phrase {i}: {e}")
+            except Exception as e2:
+                print(f"Unknown error during encryption for phrase {i}: {e2}")
+    except Exception as e:
+        print(f"Unexpected error when processing the phrases: {e}")
+        return
+    try:
+        save_to_file(outputFileNameEntry.get(), answer)
+    except Exception as e:
+        print(f"Error saving the prhaes to file file: {e}")
+
 
 def decryptFile():
     global decryptFileNameEntry, decryptOutputFileNameEntry
-    phrases = load_file(decryptFileNameEntry.get())
+    try:
+        phrases = load_file(decryptFileNameEntry.get())
+    except Exception as e:
+        print(f"Problem with loading file: {e}")
+        return 
+
     answer = []
-    for i in range(len(phrases)):
-        key = get_key(phrases[i])
-        if (check_key(key)):
-            key = put_key_in_range(key)
-            answer.append(decoder(phrases[i], key))
-    save_to_file(decryptOutputFileNameEntry.get(), answer)
+    try:
+        for i in range(len(phrases)):
+            try:
+                key = get_key(phrases[i])
+                if check_key(key):
+                    key = put_key_in_range(key)
+                    answer.append(decoder(phrases[i], key))
+            except ValueError as e:
+                print(f"There was a ValueError during decryption for phrase {i}: {e}")
+            except Exception as e2:
+                print(f"Unexpected error during decryption for phrase {i}: {e2}")
+    except Exception as e:
+        print(f"Unexpected error processing phrases: {e}")
+        return
+
+    try:
+        save_to_file(decryptOutputFileNameEntry.get(), answer)
+    except Exception as e:
+        print(f"Error saving phrases to file: {e}")
 
 
 titleLabel = Label(root, text="Encrypt Message", width=20, height=1, bg="black", fg="white")
@@ -173,6 +225,8 @@ def messageEntryFunc(event=None):
     encryptedOutputEntry.delete(0, END)
     encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
     encryptedOutputEntry.config(state=DISABLED)
+
+
 
 def decryptMessageEntryFunc(event=None):
     global decryptMessageEntry, decryptEncryptedOutputEntry, decryptAdditionalEncryptionKeyEntry
