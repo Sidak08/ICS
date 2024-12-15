@@ -1,7 +1,61 @@
 from tkinter import *
 from Encryption import encoder, decoder, genEncryptionKey
 from FileAccess import load_file, save_to_file
-#h
+
+'''
+File: EncryptionUI.py
+Author: Dhenushan Ramesh and Sidak Singh
+Date: Dec 9, 2024
+
+Description:
+This program provides a GUI user interface for encrypting and 
+decrypting messages. It allows the users to either manually enter a key for 
+encryption/decryption or automatically generate a key based on the input message. 
+The program does both encrypting/decrypting files and individual messages.
+
+Function list:
+check_key(encryptKey: int) -> bool
+    - Checks if the encryption key is within a the range (-2000000000 to 2000000000).
+    - parameters needed: encryptKey (int) - the encryption key .
+    - return: bool - sends True if the key is proper, False otherwise.
+
+get_key(phrase: str) -> int
+    - gets the encryption key from the first 11 characters of the given phrase.
+    - parameters needed: phrase (str) - the input string/phrase to get the key from.
+    - return: int - the encryption key or 0 in case of an error.
+
+put_key_in_range(encryptKey: int) -> int
+    - makes the encryption key between the range of -26 to 26.
+    - parameters needed: encryptKey (int) - the key to change.
+    - return: int - the new encryption key.
+
+encryptFile()
+    - Encrypts the file by reading its info, changing to encyrpted text for each line, and saving the result to a new file.
+    - parameters needed: None.
+    - return: None.
+
+decryptFile()
+    - Decrypts a file by reading its contents, applying decryption to each line, and saving the result to a new file.
+    - parameters needed: None.
+    - return: None.
+
+updateMode(new_mode: str)
+    - Updates the encryption/decryption mode (auto or manual) for live message entry.
+    - parameters needed: new_mode (str) - the new mode to set ("auto" or "manual").
+    - return: None.
+
+messageEntryFunc(event=None)
+    - Handles the encryption of the message entered by the user based on the selected mode (manual or auto).
+    - parameters needed: event (optional) - event triggering the function, default is None.
+    - return: None.
+
+decryptMessageEntryFunc(event=None)
+    - Handles the decryption of the message entered by the user based on the selected mode (manual or auto).
+    - parameters needed: event (optional) - event triggering the function, default is None.
+    - return: None.
+
+'''
+
 root = Tk()
 root.geometry("1000x600")
 root.title("Super Spy Program")
