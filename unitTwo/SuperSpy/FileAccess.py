@@ -35,11 +35,11 @@ def load_file(file_name: str) -> list:
     try:
         # Open the file in read mode
         fileR = open(file_name, "r")
-        # Read the first line which tells the # of phrases, then removes
+        # Read the first line which tells the # of phrases, then removes-
         # leading/trailing whitespace and convert it to an integer
         num_phrases = fileR.readline()
         num_phrases = int(num_phrases.strip())  
-        # Loop through the number of phrases, read each line, Removes
+        # Loop through the number of phrases, read each line, removes-
         # leading/trailing whitespace and append it to the list
         for _ in range(num_phrases):
             line = fileR.readline()
