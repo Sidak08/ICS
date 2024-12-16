@@ -9,7 +9,7 @@ Date: Dec 9, 2024
 
 Work Contributions:
     Dhenushan Ramesh: Gui Elements, check_key(encryptKey: int), get_key(phrase: str)
-    put_key_in_range(encryptKey: int), Commenting, error handling
+    put_key_in_range(encryptKey: int), Commenting
 
     Sidak Singh: encryptFile(), decryptFile(), updateMode(newMode: str),
     messageEntryFunc(event=None), decryptMessageEntryFunc(event=None),
@@ -73,85 +73,84 @@ decryptMessageEntryFunc()
 
 '''
 
-root = Tk()
-root.geometry("1000x600")
-root.title("Super Spy Program")
-root.configure(bg="black")
+root = Tk() # create the root window
+root.geometry("1000x600") # makes the size of the window
+root.title("Super Spy Program") # Makes the title of the window
+root.configure(bg="black") # Makes the background color of the window
 
 def check_key(encryptKey: int) -> bool:
     try:
-        if -2000000000 <= encryptKey <= 2000000000:
-            return True
+        if -2000000000 <= encryptKey <= 2000000000: # checks if the key is in the range
+            return True # returns True if the key is in the range
         else:
-            return False
+            return False # returns False if the key is not in the range
     except Exception as e:
-        print(f"Error in check_key: {e}")
-        return False
+        print(f"Error in check_key: {e}") # prints the error message
+        return False # returns False if there is an error
 
 def get_key(phrase: str) -> int:
     try:
-        key = phrase[0:11]
-        return int(key)
+        key = phrase[0:11] # gets the first 11 characters of the phrase
+        return int(key) # returns the 11 characters as a key as an integer
     except ValueError as e:
-        print(f"ValueError in get_key: {e}. Unable to change the key to an integer.")
+        print(f"ValueError in get_key: {e}. Unable to change the key to an integer.") 
+        # prints the error message
         return 0
     except Exception as e2:
-        print(f"Unexpected error in get_key: {e2}")
+        print(f"Unexpected error in get_key: {e2}") # prints the error message
         return 0
 
 def put_key_in_range(encryptKey: int) -> int:
     try:
-        while encryptKey < -26 or encryptKey > 26:
-            if encryptKey < -26:
-                encryptKey += 26
-            elif encryptKey > 26:
-                encryptKey -= 26
-        return int(encryptKey)
+        while encryptKey < -26 or encryptKey > 26: # checks if the key is in the range
+            if encryptKey < -26: # checks if the key is less than -26
+                encryptKey += 26 # adds 26 to the key
+            elif encryptKey > 26: # checks if the key is greater than 26
+                encryptKey -= 26 # subtracts 26 from the key
+        return int(encryptKey) # returns the key as an integer
     except Exception as e:
-        print(f"Error in put_key_in_range: {e}")
+        print(f"Error in put_key_in_range: {e}") # prints the error message
         return encryptKey
 
 
 def encryptFile():
     global fileNameEntry, outputFileNameEntry
     try:
-        phrases = load_file(fileNameEntry.get())
-        #loads the prahe from the file
+        phrases = load_file(fileNameEntry.get()) # gets the phrases from the file
     except Exception as e:
-        print(f"Problem with loading file: {e}")
-        #checks if there was error loading the file
+        print(f"Problem with loading file: {e}") # prints the error message
         return
 
-    answer = []
+    answer = [] # creates an empty list to store the new encrypted phrases
     try:
         for i in range(len(phrases)):
             try:
-                key = get_key(phrases[i])
+                key = get_key(phrases[i]) # gets the key from the phrase
                 if check_key(key):
-                    key = put_key_in_range(key)
-                    answer.append(encoder(phrases[i], key))
+                    key = put_key_in_range(key) # puts the key in the range
+                    answer.append(encoder(phrases[i], key)) # encrypts the phrase and adds it to the list
             except ValueError as e:
-                print(f"There was a ValueError during encryption for phrase {i}: {e}")
+                print(f"There was a ValueError during encryption for phrase {i}: {e}") # prints the error message
             except Exception as e2:
-                print(f"Unknown error during encryption for phrase {i}: {e2}")
+                print(f"Unknown error during encryption for phrase {i}: {e2}") # prints the error message
     except Exception as e:
-        print(f"Unexpected error when processing the phrases: {e}")
+        print(f"Unexpected error when processing the phrases: {e}") # prints the error message
         return
     try:
-        save_to_file(outputFileNameEntry.get(), answer)
+        save_to_file(outputFileNameEntry.get(), answer) # saves the encrypted phrases to a new file
     except Exception as e:
-        print(f"Error saving the prhaes to file file: {e}")
+        print(f"Error saving the prhaes to file file: {e}") # prints the error message
 
 
 def decryptFile():
     global decryptFileNameEntry, decryptOutputFileNameEntry
     try:
-        phrases = load_file(decryptFileNameEntry.get())
+        phrases = load_file(decryptFileNameEntry.get()) # gets the phrases from the file
     except Exception as e:
-        print(f"Problem with loading file: {e}")
+        print(f"Problem with loading file: {e}") # prints the error message
         return
 
-    answer = []
+    answer = [] # creates an empty list to store the new decrypted phrases
     try:
         for i in range(len(phrases)):
             try:
