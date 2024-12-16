@@ -33,8 +33,10 @@ def genEncryptionKey(sentence: str) -> int:
                 #checks if the character is a capital letter
                 numCapitalLetters += 1
             elif LOWERCASE_LETTERS.find(sentence[i]) != -1:
+                #checks if the character is a lowercase letter
                 numLowercaseLetters += 1
             elif not is_not_a_letter(sentence[i]):
+                #checks if the character is a special letter
                 numSpecialCharacters += 1
 
         return ((numCapitalLetters * 2 + numLowercaseLetters * 3 +
@@ -57,7 +59,7 @@ def is_not_a_letter(character: str) -> bool:
     '''
     if CAPITAL_LETTERS.find(character) != -1 or LOWERCASE_LETTERS.find(character) != -1:
         return True
-    return False
+    return False #checks if the character is a letter
 
 def encode(letter: str, key: int) -> str:
     '''
@@ -72,20 +74,22 @@ def encode(letter: str, key: int) -> str:
         global CAPITAL_LETTERS, LOWERCASE_LETTERS
         if is_not_a_letter(letter):
             if CAPITAL_LETTERS.find(letter) != -1:
-                index = CAPITAL_LETTERS.find(letter)
-                newIndex = (index + key) % 26
-                if newIndex < 0:
-                    newIndex += 26
-                return CAPITAL_LETTERS[newIndex]
+                #checks letter for capital letter
+                index = CAPITAL_LETTERS.find(letter)#finds the index of the letter
+                newIndex = (index + key) % 26#calculates the new index
+                if newIndex < 0: #check if the index is negative
+                    newIndex += 26 #makes the index positive
+                return CAPITAL_LETTERS[newIndex] #returns the new letter
             if LOWERCASE_LETTERS.find(letter) != -1:
-                index = LOWERCASE_LETTERS.find(letter)
-                newIndex = (index + key) % 26
-                if newIndex < 0:
-                    newIndex += 26
-                return LOWERCASE_LETTERS[newIndex]
+                #checks letter for lowercase letter
+                index = LOWERCASE_LETTERS.find(letter)#finds the index of the letter
+                newIndex = (index + key) % 26 #calculates the new index
+                if newIndex < 0: #check if the index is negative
+                    newIndex += 26 #makes the index positive
+                return LOWERCASE_LETTERS[newIndex] #returns the new letter
         return letter
     except Exception as e:
-        print(f"Error in encode: {e}")
+        print(f"Error in encode: {e}") #prints if there is a error in the function
         return letter
 
 def decode(letter: str, key: int) -> str:
@@ -101,17 +105,19 @@ def decode(letter: str, key: int) -> str:
         global CAPITAL_LETTERS, LOWERCASE_LETTERS
         if is_not_a_letter(letter):
             if CAPITAL_LETTERS.find(letter) != -1:
-                index = CAPITAL_LETTERS.find(letter)
-                newIndex = (index - key) % 26
-                if newIndex < 0:
-                    newIndex += 26
-                return CAPITAL_LETTERS[newIndex]
+                #checks letter for capital letter
+                index = CAPITAL_LETTERS.find(letter) #finds the index of the letter
+                newIndex = (index - key) % 26 #calculates the new index
+                if newIndex < 0: #check if the index is negative
+                    newIndex += 26 #makes the index positive
+                return CAPITAL_LETTERS[newIndex] #returns the new letter
             if LOWERCASE_LETTERS.find(letter) != -1:
-                index = LOWERCASE_LETTERS.find(letter)
-                newIndex = (index - key) % 26
-                if newIndex < 0:
-                    newIndex += 26
-                return LOWERCASE_LETTERS[newIndex]
+                #checks letter for lowercase letter
+                index = LOWERCASE_LETTERS.find(letter) #finds the index of the letter
+                newIndex = (index - key) % 26 #calculates the new index
+                if newIndex < 0: #check if the index is negative
+                    newIndex += 26  #makes the index positive
+                return LOWERCASE_LETTERS[newIndex] #returns the new letter
         return letter
     except Exception as e:
         print(f"Error in decode: {e}")
@@ -127,12 +133,14 @@ def encoder(sentence: str, key: int) -> str:
         str - encoded string
     '''
     try:
-        answer = ""
-        for i in range(len(sentence)):
+        answer = "" #initialize the answer
+        for i in range(len(sentence)): #loops through the sentence
             answer += encode(sentence[i], key)
-        return answer
+            #encodes the character and adds it to the answer
+        return answer #returns the encoded string
     except Exception as e:
         print(f"Error in encoder: {e}")
+        #prints an a error in the function if present
         return ""
 
 def decoder(sentence: str, key: int) -> str:
@@ -145,12 +153,14 @@ def decoder(sentence: str, key: int) -> str:
         str - decoded string
     '''
     try:
-        answer = ""
-        for i in range(len(sentence)):
+        answer = "" #initialize the answer
+        for i in range(len(sentence)): #loops through the sentence
             answer += decode(sentence[i], key)
+            #encodes the character and adds it to the answer
         return answer
     except Exception as e:
         print(f"Error in decoder: {e}")
+        #prints an a error in the function if present
         return ""
 
 if __name__ == "__main__":

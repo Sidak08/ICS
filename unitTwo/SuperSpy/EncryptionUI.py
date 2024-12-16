@@ -116,8 +116,10 @@ def encryptFile():
     global fileNameEntry, outputFileNameEntry
     try:
         phrases = load_file(fileNameEntry.get())
+        #loads the prahe from the file
     except Exception as e:
         print(f"Problem with loading file: {e}")
+        #checks if there was error loading the file
         return
 
     answer = []
