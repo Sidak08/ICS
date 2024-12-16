@@ -24,18 +24,28 @@ def genEncryptionKey(sentence: str) -> int:
     Returns:
         key(int) - a dynamically generated key based off the sentence
     '''
-    numCapitalLetters = 0
-    numLowercaseLetters = 0
-    numSpecialCharacters = 0
-    for i in range(len(sentence)):
-        if CAPITAL_LETTERS.find(sentence[i]) != -1:
-            numCapitalLetters += 1
-        elif LOWERCASE_LETTERS.find(sentence[i]) != -1:
-            numLowercaseLetters += 1
-        elif not is_not_a_letter(sentence[i]):
-            numSpecialCharacters += 1
+    try:
+        numCapitalLetters = 0
+        numLowercaseLetters = 0
+        numSpecialCharacters = 0
+        for i in range(len(sentence)):
+            if CAPITAL_LETTERS.find(sentence[i]) != -1:
+                #checks if the character is a capital letter
+                numCapitalLetters += 1
+            elif LOWERCASE_LETTERS.find(sentence[i]) != -1:
+                numLowercaseLetters += 1
+            elif not is_not_a_letter(sentence[i]):
+                numSpecialCharacters += 1
 
-    return ((numCapitalLetters * 2 + numLowercaseLetters * 3 + numSpecialCharacters * 4) ** 2) + (numCapitalLetters + numLowercaseLetters + numSpecialCharacters)
+        return ((numCapitalLetters * 2 + numLowercaseLetters * 3 +
+            numSpecialCharacters * 4) ** 2) + (numCapitalLetters +
+                numLowercaseLetters + numSpecialCharacters)
+            # usses a formula to generate a key based off the number
+            # of capital letters, lowercase letters, and special characters
+    except Exception as e:
+        print(f"Error in genEncryptionKey: {e}")
+        #prints if there is a error in the function
+        return None
 
 def is_not_a_letter(character: str) -> bool:
     '''
@@ -58,21 +68,25 @@ def encode(letter: str, key: int) -> str:
     Returns:
         str - encoded character
     '''
-    global CAPITAL_LETTERS, LOWERCASE_LETTERS
-    if is_not_a_letter(letter):
-        if CAPITAL_LETTERS.find(letter) != -1:
-            index = CAPITAL_LETTERS.find(letter)
-            newIndex = (index + key) % 26
-            if newIndex < 0:
-                newIndex += 26
-            return CAPITAL_LETTERS[newIndex]
-        if LOWERCASE_LETTERS.find(letter) != -1:
-            index = LOWERCASE_LETTERS.find(letter)
-            newIndex = (index + key) % 26
-            if newIndex < 0:
-                newIndex += 26
-            return LOWERCASE_LETTERS[newIndex]
-    return letter
+    try:
+        global CAPITAL_LETTERS, LOWERCASE_LETTERS
+        if is_not_a_letter(letter):
+            if CAPITAL_LETTERS.find(letter) != -1:
+                index = CAPITAL_LETTERS.find(letter)
+                newIndex = (index + key) % 26
+                if newIndex < 0:
+                    newIndex += 26
+                return CAPITAL_LETTERS[newIndex]
+            if LOWERCASE_LETTERS.find(letter) != -1:
+                index = LOWERCASE_LETTERS.find(letter)
+                newIndex = (index + key) % 26
+                if newIndex < 0:
+                    newIndex += 26
+                return LOWERCASE_LETTERS[newIndex]
+        return letter
+    except Exception as e:
+        print(f"Error in encode: {e}")
+        return letter
 
 def decode(letter: str, key: int) -> str:
     '''
@@ -83,21 +97,25 @@ def decode(letter: str, key: int) -> str:
     Returns:
         str - decoded character
     '''
-    global CAPITAL_LETTERS, LOWERCASE_LETTERS
-    if is_not_a_letter(letter):
-        if CAPITAL_LETTERS.find(letter) != -1:
-            index = CAPITAL_LETTERS.find(letter)
-            newIndex = (index - key) % 26
-            if newIndex < 0:
-                newIndex += 26
-            return CAPITAL_LETTERS[newIndex]
-        if LOWERCASE_LETTERS.find(letter) != -1:
-            index = LOWERCASE_LETTERS.find(letter)
-            newIndex = (index - key) % 26
-            if newIndex < 0:
-                newIndex += 26
-            return LOWERCASE_LETTERS[newIndex]
-    return letter
+    try:
+        global CAPITAL_LETTERS, LOWERCASE_LETTERS
+        if is_not_a_letter(letter):
+            if CAPITAL_LETTERS.find(letter) != -1:
+                index = CAPITAL_LETTERS.find(letter)
+                newIndex = (index - key) % 26
+                if newIndex < 0:
+                    newIndex += 26
+                return CAPITAL_LETTERS[newIndex]
+            if LOWERCASE_LETTERS.find(letter) != -1:
+                index = LOWERCASE_LETTERS.find(letter)
+                newIndex = (index - key) % 26
+                if newIndex < 0:
+                    newIndex += 26
+                return LOWERCASE_LETTERS[newIndex]
+        return letter
+    except Exception as e:
+        print(f"Error in decode: {e}")
+        return letter
 
 def encoder(sentence: str, key: int) -> str:
     '''
@@ -108,10 +126,14 @@ def encoder(sentence: str, key: int) -> str:
     Returns:
         str - encoded string
     '''
-    answer = ""
-    for i in range(len(sentence)):
-        answer += encode(sentence[i], key)
-    return answer
+    try:
+        answer = ""
+        for i in range(len(sentence)):
+            answer += encode(sentence[i], key)
+        return answer
+    except Exception as e:
+        print(f"Error in encoder: {e}")
+        return ""
 
 def decoder(sentence: str, key: int) -> str:
     '''
@@ -122,14 +144,20 @@ def decoder(sentence: str, key: int) -> str:
     Returns:
         str - decoded string
     '''
-    answer = ""
-    for i in range(len(sentence)):
-        answer += decode(sentence[i], key)
-    return answer
+    try:
+        answer = ""
+        for i in range(len(sentence)):
+            answer += decode(sentence[i], key)
+        return answer
+    except Exception as e:
+        print(f"Error in decoder: {e}")
+        return ""
 
 if __name__ == "__main__":
+    print(genEncryptionKey("test")) #148
     print(encode("D", -27)) # C
     print(encode("d", -2)) # b
     print(decode("D", -1)) # E
     print(encoder("sidak", 3)) # vlgdn
-    print(decoder(encoder("sidak", 3), 3)) # sidak
+    print(decoder("vlgdn", 3)) # sidak
+    print(is_not_a_letter("a")) # True
