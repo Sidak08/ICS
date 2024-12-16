@@ -1,5 +1,5 @@
 '''
-File: ExpressionLoadPartC.py
+File: FileAccess.py
 Author: Dhenushan Ramesh
 Date: Dec 9, 2024
 
@@ -31,26 +31,20 @@ def load_file(file_name: str) -> list:
     Returns:
         list: A list containing the lines of the file
     '''
-    phrases = []  # Makes an empty list
+    phrases = []  # Create an empty list to store the phrases
     try:
-        # Open the file in read mode
-        fileR = open(file_name, "r")
-        # Read the first line which tells the # of phrases, then removes-
-        # leading/trailing whitespace and convert it to an integer
-        num_phrases = fileR.readline()
-        num_phrases = int(num_phrases.strip())  
-        # Loop through the number of phrases, read each line, removes-
-        # leading/trailing whitespace and append it to the list
+        fileR = open(file_name, "r") #open the file in read mode
+        num_phrases = fileR.readline() #reads the first line of the file
+        num_phrases = int(num_phrases.strip()) #strips the newline character
         for _ in range(num_phrases):
-            line = fileR.readline()
-            line = line.strip()
-            phrases.append(line) 
-        
+            line = fileR.readline() #reads the next line
+            line = line.strip() #strips the newline character
+            phrases.append(line) #adds the line to the list
+
     except FileNotFoundError as e:
-        # Handle the case where the file is not found
-        print(f"Error: File '{file_name}' not found.")
-        print(e)
-    
+        print(f"Error: File '{file_name}' not found.") #prints an error message if the file is not found
+        print(e) #prints the error message
+
     return phrases  # Return the list of phrases
 
 def save_to_file(filename: str, output_data: list) -> None:
@@ -62,17 +56,15 @@ def save_to_file(filename: str, output_data: list) -> None:
     Returns: function does not return anything
     '''
     try:
-        # Opens the file in write mode
-        fileR = open(filename, "w")
-        # Writes the number of phrases to the first line of the txt file
-        fileR.write(str(len(output_data)) + "\n")
-        # Write each phrase to the file, line by line to the txt file
+        fileR = open(filename, "w") #open the file in write mode
+        fileR.write(str(len(output_data)) + "\n") 
+        #write the number of phrases to the first line of the file
         for phrase in output_data:
-            fileR.write(phrase + "\n")
+            fileR.write(phrase + "\n") #write each phrase to a new line in the file
     except FileNotFoundError as e:
-        # Add error handling when the file cannot be opened for writing
-        print(f"Error: Could not open the file '{filename}' for writing.")
-        print(e)
+        print(f"Error: Could not open the file '{filename}' for writing.") 
+        #prints an error message if the file is not found
+        print(e) #prints the error message
 
 
 #------------- Main Program -------------------
