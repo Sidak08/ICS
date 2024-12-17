@@ -102,21 +102,12 @@ def get_key(phrase: str) -> int:
 
 def put_key_in_range(encryptKey: int) -> int:
     try:
-        # while encryptKey < -26 or encryptKey > 26: # checks if the key is in the range
-        #     if encryptKey < -26: # checks if the key is less than -26
-        #         encryptKey += 26 # adds 26 to the key
-        #     elif encryptKey > 26: # checks if the key is greater than 26
-        #         encryptKey -= 26 # subtracts 26 from the key
-        # return int(encryptKey) # returns the key as an integer
         if encryptKey < -26: # checks if the key is less than -26
             return -((encryptKey * -1) % 26) # adds 26 to the key
         return encryptKey % 26
     except Exception as e:
         print(f"Error in put_key_in_range: {e}") # prints the error message
         return encryptKey
-
-
-
 
 def encryptFile(fileName, outputFileName):
     try:
@@ -168,7 +159,7 @@ def decryptFile(fileName, outputFileName):
                 key = get_key(phrases[i]) # gets the key from the phrase
                 if check_key(key):
                     key = put_key_in_range(key) # puts the key in the range
-                    answer.append(decoder(phrases[i], key)) 
+                    answer.append(decoder(phrases[i], key))
             except ValueError as e:
                 print(f"There was a ValueError during decryption for phrase {i}: {e}")
                 # prints the error message
@@ -376,22 +367,23 @@ def messageEntryFunc(event=None):
 
         # Handles Auto mode: generate key automatically
         elif mode == "auto":
-            key = genEncryptionKey(messageEntry.get())
-            # Generates a key based on the message
-            additionalEncryptionKeyEntry.config(state=NORMAL)
-            additionalEncryptionKeyEntry.delete(0, END)
-            additionalEncryptionKeyEntry.insert(0, str(key))
-            additionalEncryptionKeyEntry.config(state=DISABLED)
-            # Displays the key
+            if messageEntry.get() != "":
+                key = genEncryptionKey(messageEntry.get())
+                # Generates a key based on the message
+                additionalEncryptionKeyEntry.config(state=NORMAL)
+                additionalEncryptionKeyEntry.delete(0, END)
+                additionalEncryptionKeyEntry.insert(0, str(key))
+                additionalEncryptionKeyEntry.config(state=DISABLED)
+                # Displays the key
     except Exception as e:
-        print("Your key value might have letter within it")
+        print("Your key value might have letters within it")
         print(e)
 
-        # Display encrypted output
-        encryptedOutputEntry.config(state=NORMAL)
-        encryptedOutputEntry.delete(0, END)
-        encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
-        encryptedOutputEntry.config(state=DISABLED)
+    # Display encrypted output
+    encryptedOutputEntry.config(state=NORMAL)
+    encryptedOutputEntry.delete(0, END)
+    encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
+    encryptedOutputEntry.config(state=DISABLED)
 
 # Handle message entry for decryption
 def decryptMessageEntryFunc(event=None):
@@ -413,7 +405,7 @@ def decryptMessageEntryFunc(event=None):
 
         # Handles Auto mode: generate key automatically
         elif mode == "auto":
-            if decryptMessageEntry.get():
+            if decryptMessageEntry.get() != "":
                 key = genEncryptionKey(decryptMessageEntry.get())
                 # Generates a key based on the message
                 decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
@@ -422,7 +414,7 @@ def decryptMessageEntryFunc(event=None):
                 decryptAdditionalEncryptionKeyEntry.config(state=DISABLED)
                 # Displays the key
     except Exception as e:
-        print("Your key value might have letter within it")
+        print("Your key value might have letters within it")
         print(e)
 
     # Display decrypted output
