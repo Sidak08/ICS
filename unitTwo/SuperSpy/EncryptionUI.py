@@ -160,34 +160,28 @@ def decryptFile(fileName, outputFileName):
     try:
         for i in range(len(phrases)):
             try:
-                key = get_key(phrases[i])
+                key = get_key(phrases[i]) # gets the key from the phrase
                 if check_key(key):
-                    key = put_key_in_range(key)
-                    answer.append(decoder(phrases[i], key))
-                    #decrypts the phrase and adds it to the list
+                    key = put_key_in_range(key) # puts the key in the range
+                    answer.append(decoder(phrases[i], key)) 
             except ValueError as e:
                 print(f"There was a ValueError during decryption for phrase {i}: {e}")
-                # prints the error message and line (incorrect value type)
+                # prints the error message
             except Exception as e2:
                 print(f"Unexpected error during decryption for phrase {i}: {e2}")
-                # prints the line and a general error message
+                # prints the error messsage
     except Exception as e:
-        print(f"Unexpected error processing phrases: {e}")
-        # prints error when looping through the phrases
+        print(f"Unexpected error processing phrases: {e}") # prints the error message
         return
     try:
-        save_to_file(outputFileName, answer)
-        # saves the encrypted phrases to a new file
+        save_to_file(outputFileName, answer) # saves the decrypted phrases to a new file
     except Exception as e:
-        print(f"Error saving phrases to file: {e}")
-        # prints an error message if there is a problem saving the file
+        print(f"Error saving phrases to file: {e}") # prints error message
 
 
-# Label for Encryption section title
 titleLabel = Label(root, text="Encrypt Message", width=20, height=1,
-                    bg="black", fg="white")
-titleLabel.grid(row=0, column=0, padx=10, pady=10)
-# Positioning title in grid layout
+                    bg="black", fg="white") # creates a label for the title
+titleLabel.grid(row=0, column=0, padx=10, pady=10) # places the label in the window
 titleLabel.config(font=25)  # Setting font size for the title
 
 # Label for file name input
