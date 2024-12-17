@@ -165,34 +165,28 @@ def decryptFile(fileName, outputFileName):
     try:
         for i in range(len(phrases)):
             try:
-                key = get_key(phrases[i])
+                key = get_key(phrases[i]) # gets the key from the phrase
                 if check_key(key):
-                    key = put_key_in_range(key)
-                    answer.append(decoder(phrases[i], key))
-                    #decrypts the phrase and adds it to the list
+                    key = put_key_in_range(key) # puts the key in the range
+                    answer.append(decoder(phrases[i], key)) 
             except ValueError as e:
                 print(f"There was a ValueError during decryption for phrase {i}: {e}")
-                # prints the error message and line (incorrect value type)
+                # prints the error message
             except Exception as e2:
                 print(f"Unexpected error during decryption for phrase {i}: {e2}")
-                # prints the line and a general error message
+                # prints the error messsage
     except Exception as e:
-        print(f"Unexpected error processing phrases: {e}")
-        # prints error when looping through the phrases
+        print(f"Unexpected error processing phrases: {e}") # prints the error message
         return
     try:
-        save_to_file(outputFileName, answer)
-        # saves the encrypted phrases to a new file
+        save_to_file(outputFileName, answer) # saves the decrypted phrases to a new file
     except Exception as e:
-        print(f"Error saving phrases to file: {e}")
-        # prints an error message if there is a problem saving the file
+        print(f"Error saving phrases to file: {e}") # prints error message
 
 
-# Label for Encryption section title
 titleLabel = Label(root, text="Encrypt Message", width=20, height=1,
-                    bg="black", fg="white")
-titleLabel.grid(row=0, column=0, padx=10, pady=10)
-# Positioning title in grid layout
+                    bg="black", fg="white") # creates a label for the title
+titleLabel.grid(row=0, column=0, padx=10, pady=10) # places the label in the window
 titleLabel.config(font=25)  # Setting font size for the title
 
 # Label for file name input
@@ -369,31 +363,35 @@ def messageEntryFunc(event=None):
     key = 0
 
     # Handles manual mode: user enters a key
-    if mode == "manual":
-        additionalEncryptionKeyEntry.config(state=NORMAL)
-        if additionalEncryptionKeyEntry.get() != "" and check_key(
-            int(additionalEncryptionKeyEntry.get())):
-            # Check if the key is valid
-            key = int(additionalEncryptionKeyEntry.get())
+    try:
+        if mode == "manual":
+            additionalEncryptionKeyEntry.config(state=NORMAL)
+            if additionalEncryptionKeyEntry.get() != "" and check_key(
+                int(additionalEncryptionKeyEntry.get())):
+                # Check if the key is valid
+                key = int(additionalEncryptionKeyEntry.get())
+                additionalEncryptionKeyEntry.delete(0, END)
+                additionalEncryptionKeyEntry.insert(0, str(key))
+                # Displays the key
+
+        # Handles Auto mode: generate key automatically
+        elif mode == "auto":
+            key = genEncryptionKey(messageEntry.get())
+            # Generates a key based on the message
+            additionalEncryptionKeyEntry.config(state=NORMAL)
             additionalEncryptionKeyEntry.delete(0, END)
             additionalEncryptionKeyEntry.insert(0, str(key))
+            additionalEncryptionKeyEntry.config(state=DISABLED)
             # Displays the key
+    except Exception as e:
+        print("Your key value might have letter within it")
+        print(e)
 
-    # Handles Auto mode: generate key automatically
-    elif mode == "auto":
-        key = genEncryptionKey(messageEntry.get())
-        # Generates a key based on the message
-        additionalEncryptionKeyEntry.config(state=NORMAL)
-        additionalEncryptionKeyEntry.delete(0, END)
-        additionalEncryptionKeyEntry.insert(0, str(key))
-        additionalEncryptionKeyEntry.config(state=DISABLED)
-        # Displays the key
-
-    # Display encrypted output
-    encryptedOutputEntry.config(state=NORMAL)
-    encryptedOutputEntry.delete(0, END)
-    encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
-    encryptedOutputEntry.config(state=DISABLED)
+        # Display encrypted output
+        encryptedOutputEntry.config(state=NORMAL)
+        encryptedOutputEntry.delete(0, END)
+        encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
+        encryptedOutputEntry.config(state=DISABLED)
 
 # Handle message entry for decryption
 def decryptMessageEntryFunc(event=None):
@@ -402,27 +400,30 @@ def decryptMessageEntryFunc(event=None):
     key = 0
 
     # Handles Manual mode: user enters decryption key
-    if mode == "manual":
-        decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
-        if decryptAdditionalEncryptionKeyEntry.get() != "" and check_key(
-            int(decryptAdditionalEncryptionKeyEntry.get())):
-            # Check if the key is valid
-            key = int(decryptAdditionalEncryptionKeyEntry.get())
-            decryptAdditionalEncryptionKeyEntry.delete(0, END)
-            decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
-            # Displays the key
-
-    # Handles Auto mode: generate key automatically
-    elif mode == "auto":
-        if decryptMessageEntry.get():
-            key = genEncryptionKey(decryptMessageEntry.get())
-            # Generates a key based on the message
+    try:
+        if mode == "manual":
             decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
-            decryptAdditionalEncryptionKeyEntry.delete(0, END)
-            decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
-            decryptAdditionalEncryptionKeyEntry.config(state=DISABLED)
-            # Displays the key
+            if decryptAdditionalEncryptionKeyEntry.get() != "" and check_key(
+                int(decryptAdditionalEncryptionKeyEntry.get())):
+                # Check if the key is valid
+                key = int(decryptAdditionalEncryptionKeyEntry.get())
+                decryptAdditionalEncryptionKeyEntry.delete(0, END)
+                decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
+                # Displays the key
 
+        # Handles Auto mode: generate key automatically
+        elif mode == "auto":
+            if decryptMessageEntry.get():
+                key = genEncryptionKey(decryptMessageEntry.get())
+                # Generates a key based on the message
+                decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
+                decryptAdditionalEncryptionKeyEntry.delete(0, END)
+                decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
+                decryptAdditionalEncryptionKeyEntry.config(state=DISABLED)
+                # Displays the key
+    except Exception as e:
+        print("Your key value might have letter within it")
+        print(e)
 
     # Display decrypted output
     decryptEncryptedOutputEntry.config(state=NORMAL)
