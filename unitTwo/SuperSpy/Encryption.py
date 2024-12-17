@@ -15,8 +15,9 @@ def genEncryptionKey(sentence: str) -> int:
     '''
     Takes a sentence and returns a key based off the number of capital letters,
     lowercase letters, and special characters in the sentence using this formula
-    ((numCapitalLetters * 2 + numLowercaseLetters * 3 + numSpecialCharacters * 4) ** 2)
-    + (numCapitalLetters + numLowercaseLetters + numSpecialCharacters)
+    ((numCapitalLetters * 2 + numLowercaseLetters * 3 +
+    numSpecialCharacters * 4) ** 2) + (numCapitalLetters + numLowercaseLetters
+    + numSpecialCharacters)
 
     Parameters:
         sentence(str) - input string containing the sentence to base the key off of
@@ -44,11 +45,13 @@ def genEncryptionKey(sentence: str) -> int:
             # usses a formula to generate a key based off the number
             # of capital letters, lowercase letters, and special characters
     except ValueError as ve:
-        print(f"An invalid value was provided for automatic encryption key generation: {ve}")
+        print(f"An invalid value was provided for" +
+            f"automatic encryption key generation: {ve}")
         #prints if an invalid value is provided
         return None
     except Exception as e:
-        print(f"An invalid type (non string) was given or a general error occured: {e}")
+        print(f"An invalid type (non string) was given" +
+            f"or a general error occured: {e}")
         #prints if there is an error in the function
         return None
 
@@ -64,7 +67,8 @@ def is_not_a_letter(character: str) -> bool:
         if len(character) != 1:
             raise ValueError("Input string must be a single character")
 
-        if CAPITAL_LETTERS.find(character) != -1 or LOWERCASE_LETTERS.find(character) != -1:
+        if CAPITAL_LETTERS.find(character) != -1 or LOWERCASE_LETTERS.find(
+            character) != -1:
             return False #returns False if the character is a letter
         return True #returns True if the character is not a letter
     except Exception as e:
@@ -73,7 +77,8 @@ def is_not_a_letter(character: str) -> bool:
 
 def encode(letter: str, key: int) -> str:
     '''
-    Encodes one character by using Caesar cipher to move the character by key
+    Encodes one character by using Caesar cipher to move the
+    character by key
     Parameters:
         letter(str) - input character to encode
         key(int) - input key to encode the character by
@@ -114,7 +119,8 @@ def encode(letter: str, key: int) -> str:
 
 def decode(letter: str, key: int) -> str:
     '''
-    Decodes one character by using Caesar cipher to move the character by the negative key
+    Decodes one character by using Caesar cipher to move the
+    character by the negative key
     Parameters:
         letter(str) - input character to decode
         key(int) - input key to decode the character by
