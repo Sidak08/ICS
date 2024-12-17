@@ -364,31 +364,35 @@ def messageEntryFunc(event=None):
     key = 0
 
     # Handles manual mode: user enters a key
-    if mode == "manual":
-        additionalEncryptionKeyEntry.config(state=NORMAL)
-        if additionalEncryptionKeyEntry.get() != "" and check_key(
-            int(additionalEncryptionKeyEntry.get())):
-            # Check if the key is valid
-            key = int(additionalEncryptionKeyEntry.get())
+    try:
+        if mode == "manual":
+            additionalEncryptionKeyEntry.config(state=NORMAL)
+            if additionalEncryptionKeyEntry.get() != "" and check_key(
+                int(additionalEncryptionKeyEntry.get())):
+                # Check if the key is valid
+                key = int(additionalEncryptionKeyEntry.get())
+                additionalEncryptionKeyEntry.delete(0, END)
+                additionalEncryptionKeyEntry.insert(0, str(key))
+                # Displays the key
+
+        # Handles Auto mode: generate key automatically
+        elif mode == "auto":
+            key = genEncryptionKey(messageEntry.get())
+            # Generates a key based on the message
+            additionalEncryptionKeyEntry.config(state=NORMAL)
             additionalEncryptionKeyEntry.delete(0, END)
             additionalEncryptionKeyEntry.insert(0, str(key))
+            additionalEncryptionKeyEntry.config(state=DISABLED)
             # Displays the key
+    except Exception as e:
+        print("Your key value might have letter within it")
+        print(e)
 
-    # Handles Auto mode: generate key automatically
-    elif mode == "auto":
-        key = genEncryptionKey(messageEntry.get())
-        # Generates a key based on the message
-        additionalEncryptionKeyEntry.config(state=NORMAL)
-        additionalEncryptionKeyEntry.delete(0, END)
-        additionalEncryptionKeyEntry.insert(0, str(key))
-        additionalEncryptionKeyEntry.config(state=DISABLED)
-        # Displays the key
-
-    # Display encrypted output
-    encryptedOutputEntry.config(state=NORMAL)
-    encryptedOutputEntry.delete(0, END)
-    encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
-    encryptedOutputEntry.config(state=DISABLED)
+        # Display encrypted output
+        encryptedOutputEntry.config(state=NORMAL)
+        encryptedOutputEntry.delete(0, END)
+        encryptedOutputEntry.insert(0, encoder(messageEntry.get(), key))
+        encryptedOutputEntry.config(state=DISABLED)
 
 # Handle message entry for decryption
 def decryptMessageEntryFunc(event=None):
@@ -397,27 +401,30 @@ def decryptMessageEntryFunc(event=None):
     key = 0
 
     # Handles Manual mode: user enters decryption key
-    if mode == "manual":
-        decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
-        if decryptAdditionalEncryptionKeyEntry.get() != "" and check_key(
-            int(decryptAdditionalEncryptionKeyEntry.get())):
-            # Check if the key is valid
-            key = int(decryptAdditionalEncryptionKeyEntry.get())
-            decryptAdditionalEncryptionKeyEntry.delete(0, END)
-            decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
-            # Displays the key
-
-    # Handles Auto mode: generate key automatically
-    elif mode == "auto":
-        if decryptMessageEntry.get():
-            key = genEncryptionKey(decryptMessageEntry.get())
-            # Generates a key based on the message
+    try:
+        if mode == "manual":
             decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
-            decryptAdditionalEncryptionKeyEntry.delete(0, END)
-            decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
-            decryptAdditionalEncryptionKeyEntry.config(state=DISABLED)
-            # Displays the key
+            if decryptAdditionalEncryptionKeyEntry.get() != "" and check_key(
+                int(decryptAdditionalEncryptionKeyEntry.get())):
+                # Check if the key is valid
+                key = int(decryptAdditionalEncryptionKeyEntry.get())
+                decryptAdditionalEncryptionKeyEntry.delete(0, END)
+                decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
+                # Displays the key
 
+        # Handles Auto mode: generate key automatically
+        elif mode == "auto":
+            if decryptMessageEntry.get():
+                key = genEncryptionKey(decryptMessageEntry.get())
+                # Generates a key based on the message
+                decryptAdditionalEncryptionKeyEntry.config(state=NORMAL)
+                decryptAdditionalEncryptionKeyEntry.delete(0, END)
+                decryptAdditionalEncryptionKeyEntry.insert(0, str(key))
+                decryptAdditionalEncryptionKeyEntry.config(state=DISABLED)
+                # Displays the key
+    except Exception as e:
+        print("Your key value might have letter within it")
+        print(e)
 
     # Display decrypted output
     decryptEncryptedOutputEntry.config(state=NORMAL)
