@@ -48,7 +48,7 @@ def genEncryptionKey(sentence: str) -> int:
         #prints if an invalid value is provided
         return None
     except Exception as e:
-        print(f"Error in genEncryptionKey: {e}")
+        print(f"An invalid type (non string) was given or a general error occured: {e}")
         #prints if there is an error in the function
         return None
 
@@ -81,7 +81,7 @@ def encode(letter: str, key: int) -> str:
         str - encoded character
     '''
     try:
-        if len(letter) != 1:
+        if len(letter) > 1:
             raise ValueError("Input string must be a single character")
 
         key = int(key) #checks if the key is an integer
@@ -102,8 +102,11 @@ def encode(letter: str, key: int) -> str:
                     newIndex += 26 #makes the index positive if negative
                 return LOWERCASE_LETTERS[newIndex]
         return letter
-    except ValueError:
-        print("Key must be an integer") #prints if a invalid key is provided
+    except ValueError as ve:
+        if str(ve) == "Input string must be a single character":
+            print(ve)
+        else:
+            print("Key must be an integer") #prints if a invalid key is provided
         return letter
     except Exception as e:
         print(f"Error in encode: {e}") #prints a generic error
@@ -121,6 +124,7 @@ def decode(letter: str, key: int) -> str:
     try:
         if len(letter) != 1:
             raise ValueError("Input string must be a single character")
+
         key = int(key)  #checks if the key is an integer
         global CAPITAL_LETTERS, LOWERCASE_LETTERS
         if is_not_a_letter(letter) == False:
@@ -139,9 +143,11 @@ def decode(letter: str, key: int) -> str:
                     newIndex += 26  #makes the index positive
                 return LOWERCASE_LETTERS[newIndex] #returns the new letter
         return letter
-    except ValueError:
-        print("Key must be an integer")
-        #prints if a invalid key is provided
+    except ValueError as ve:
+        if str(ve) == "Input string must be a single character":
+            print(ve)
+        else:
+            print("Key must be an integer") #prints if a invalid key is provided
         return letter
     except Exception as e:
         print(f"Error in decode: {e}") #prints a generic error
@@ -200,12 +206,12 @@ def decoder(sentence: str, key: int) -> str:
 
 if __name__ == "__main__":
     # genEncryptionKey
-    print(genEncryptionKey("Hello, World!")) #output: 1613
-    print(genEncryptionKey("Python3.8")) #output: 850
-    print(genEncryptionKey("1234567890")) #output: 1610
-    print(genEncryptionKey("!@#$%^&*()")) #output: 1610
+    print(genEncryptionKey("Hello, World!")) #output: 794
+    print(genEncryptionKey("Python3.8")) #output: 295
+    print(genEncryptionKey("1234567890")) #output: 0
+    print(genEncryptionKey("!@#$%^&*()")) #output: 0
     print(genEncryptionKey("A quick brown fox jumps over the lazy dog."))
-    #output: 17998
+    #output: 9637
 
     # encode
     print(encode("A", 1)) #output: B
