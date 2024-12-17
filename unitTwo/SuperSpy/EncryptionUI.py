@@ -102,15 +102,20 @@ def get_key(phrase: str) -> int:
 
 def put_key_in_range(encryptKey: int) -> int:
     try:
-        while encryptKey < -26 or encryptKey > 26: # checks if the key is in the range
-            if encryptKey < -26: # checks if the key is less than -26
-                encryptKey += 26 # adds 26 to the key
-            elif encryptKey > 26: # checks if the key is greater than 26
-                encryptKey -= 26 # subtracts 26 from the key
-        return int(encryptKey) # returns the key as an integer
+        # while encryptKey < -26 or encryptKey > 26: # checks if the key is in the range
+        #     if encryptKey < -26: # checks if the key is less than -26
+        #         encryptKey += 26 # adds 26 to the key
+        #     elif encryptKey > 26: # checks if the key is greater than 26
+        #         encryptKey -= 26 # subtracts 26 from the key
+        # return int(encryptKey) # returns the key as an integer
+        if encryptKey < -26: # checks if the key is less than -26
+            return -((encryptKey * -1) % 26) # adds 26 to the key
+        return encryptKey % 26
     except Exception as e:
         print(f"Error in put_key_in_range: {e}") # prints the error message
         return encryptKey
+
+
 
 
 def encryptFile(fileName, outputFileName):
@@ -478,6 +483,8 @@ if __name__ == "__main__":
     print(get_key("+9876543210Test"))  # output: 9876543210
     print(get_key("InvalidKey"))  # output: 0  # ValueError in get_key:
     print(get_key("12345abcde6Test"))  # output: 0  # ValueError in get_key:
+
+    print("hi")
 
     #put_key_in_range
     print(put_key_in_range(0))  # output: 0
