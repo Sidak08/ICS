@@ -74,4 +74,3 @@ if __name__ == "__main__":
     print(phrases)
     outputfile = input("Enter a output file name: ")
     save_to_file(outputfile, phrases)
-    filename = input("What is filename") 
