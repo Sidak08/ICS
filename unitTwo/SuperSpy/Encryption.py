@@ -1,5 +1,5 @@
 '''
-File: EncryptionK.py
+File: Encryption.py
 Author: Sidak Singh
 Date: Dec 14, 2024
 
