@@ -1,0 +1,10 @@
+9
++1234567890 The quick brown fox jumps over the lazy dog.
++1122334455 How much wood would a woodchuck chuck if a woodchuck could chuck wood?
+-1566778899 To be or not to be, that is the question.
++1677889900 A journey of a thousand miles begins with a single step.
+-1344556677 All that glitters is not gold.
++1988776655 The early bird catches the worm.
+-1766554433 Actions speak louder than words.
++2000000000 Every cloud has a silver lining.
+-2000000000 When in Rome, do as the Romans do.

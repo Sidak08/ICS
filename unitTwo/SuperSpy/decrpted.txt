@@ -1,4 +1,0 @@
-3
-+000040201 Denu is fine
-+000234001 Denu is bad
-+000043001 Denu is good
