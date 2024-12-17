@@ -477,8 +477,6 @@ if __name__ == "__main__":
     print(get_key("InvalidKey"))  # output: 0  # ValueError in get_key:
     print(get_key("12345abcde6Test"))  # output: 0  # ValueError in get_key:
 
-    print("hi")
-
     #put_key_in_range
     print(put_key_in_range(0))  # output: 0
     print(put_key_in_range(26))  # output: 0
