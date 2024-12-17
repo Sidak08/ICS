@@ -80,7 +80,8 @@ root.configure(bg="black") # Makes the background color of the window
 
 def check_key(encryptKey: int) -> bool:
     try:
-        if -2000000000 <= encryptKey <= 2000000000: # checks if the key is in the range
+        if -2000000000 <= encryptKey <= 2000000000: 
+            # checks if the key is in the range
             return True # returns True if the key is in the range
         else:
             return False # returns False if the key is not in the range
