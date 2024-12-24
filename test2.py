@@ -87,3 +87,6 @@ def on_release(key):
 # Start listening to keyboard events
 with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
+
+3ddwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwrt    # This is the text I typed out manually                                                                                                                                                                                                                                                                         xdr
+zė6r                                            ßd5AZwwwwwwwwwŻ                                                                                                                                                                                                                                              xdr                                                                                                                                                        SCWwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwTSwwwwwwwwwwwEYSRwwwwwwwwwwwX5ZTÃ
